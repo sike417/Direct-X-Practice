@@ -9,6 +9,28 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <SwapChainPanel x:Name="swapChainPanel"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border x:Name="SwapChainPanelBorder" Grid.Column="1" BorderBrush="Black" BorderThickness="1 1 1 0">
+            <SwapChainPanel x:Name="swapChainPanel"/>
+        </Border>
+
+        <Grid x:Name="NavigationViewSidePadding" Background="LightGray" Grid.Column="0" Width="40" />
+
+        <Canvas>
+            <NavigationView Height="{Binding ElementName=SwapChainPanelBorder, Path=ActualHeight}" Opacity=".5" IsPaneOpen="False" IsBackButtonVisible="Collapsed" IsSettingsVisible="False" />
+        </Canvas>
+
+        <CommandBar Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="Black" Foreground="White">
+            <AppBarButton Icon="Camera" Label="Save Image" Foreground="White"/>
+            <AppBarToggleButton Icon="Video" Label="Save Clip" Foreground="White"/>
+        </CommandBar>
     </Grid>
 </Page>
