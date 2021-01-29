@@ -18,6 +18,25 @@ namespace DirectX
         return floorf(dips * dpi / dipsPerInch + 0.5f); // Round to nearest integer.
     }
 
+    inline Concurrency::task<std::vector<byte>> ReadDataAsync(const std::wstring& fileName)
+    {
+        using namespace Windows::Storage;
+        using namespace Concurrency;
+
+        auto folder = Windows::ApplicationModel::Package::Current->InstalledLocation;
+
+        return create_task(folder->GetFileAsync(Platform::StringReference(fileName.c_str()))).then([](StorageFile^ file)
+            {
+                return FileIO::ReadBufferAsync(file);
+            }).then([](Streams::IBuffer^ fileBuffer) -> std::vector<byte>
+                {
+                    std::vector<byte> returnBuffer;
+                    returnBuffer.resize(fileBuffer->Length);
+                    Streams::DataReader::FromBuffer(fileBuffer)->ReadBytes(Platform::ArrayReference<byte>(returnBuffer.data(), fileBuffer->Length));
+                    return returnBuffer;
+                });
+    }
+
 #if defined(_DEBUG)
     // Check for SDK Layer support.
     inline bool SdkLayersAvailable()

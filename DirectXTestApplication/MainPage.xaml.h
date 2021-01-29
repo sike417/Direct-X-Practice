@@ -25,6 +25,8 @@ namespace DirectXTestApplication
     private:
         std::shared_ptr<DirectX::DeviceResources> m_spDeviceResources;
         std::unique_ptr<DirectX::DirectXMain> m_spDirectxMain;
+        std::unique_ptr<GraphicsScenes::IScene> m_spRenderScene;
+
         void swapChainPanel_SizeChanged(Platform::Object^ sender, Windows::UI::Xaml::SizeChangedEventArgs^ e);
     };
 }

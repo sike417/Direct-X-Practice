@@ -11,21 +11,40 @@
     <Filter Include="directX resources">
       <UniqueIdentifier>{59421de1-2e8c-45ad-aec0-3ea60a1c5443}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{2aeb867b-0114-4d88-a775-240e18a0cd6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{09c8f354-22e8-4888-b27b-40d0af92c4f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{b47f6345-05f8-469f-9680-d3cfe620fcde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\RenderCubeScene">
+      <UniqueIdentifier>{e08f9e1a-f77f-4ab6-93fc-b98871cab530}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp" />
     <ClCompile Include="DirectXMain.cpp">
       <Filter>directX resources</Filter>
     </ClCompile>
     <ClCompile Include="DeviceResources.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSelector.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderCubeScene.cpp">
+      <Filter>Scenes\RenderCubeScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
     <ClInclude Include="DirectXMain.h">
       <Filter>directX resources</Filter>
     </ClInclude>
@@ -34,6 +53,21 @@
     </ClInclude>
     <ClInclude Include="DirectXHelper.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSelector.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderResources.h">
+      <Filter>directX resources</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderCubeScene.h">
+      <Filter>Scenes\RenderCubeScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -64,5 +98,13 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="RenderCubeVertexShader.hlsl">
+      <Filter>Scenes\RenderCubeScene</Filter>
+    </FxCompile>
+    <FxCompile Include="RenderCubePixelShader.hlsl">
+      <Filter>Scenes\RenderCubeScene</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

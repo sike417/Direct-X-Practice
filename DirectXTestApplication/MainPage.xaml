@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <Border x:Name="SwapChainPanelBorder" Grid.Column="1" BorderBrush="Black" BorderThickness="1 1 1 0">
-            <SwapChainPanel x:Name="swapChainPanel"/>
+            <SwapChainPanel x:Name="swapChainPanel" SizeChanged="swapChainPanel_SizeChanged"/>
         </Border>
 
         <Grid x:Name="NavigationViewSidePadding" Background="LightGray" Grid.Column="0" Width="40" />

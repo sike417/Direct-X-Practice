@@ -77,7 +77,7 @@ void DirectX::DeviceResources::PresentView()
     m_d3dContext->DiscardView1(m_renderTargetView.Get(), nullptr, 0);
 
     // Discard the contents of the depth stencil.
-    //m_d3dContext->DiscardView1(m_depthStencilView.Get(), nullptr, 0);
+    m_d3dContext->DiscardView1(m_depthStencilView.Get(), nullptr, 0);
 
     // If the device was removed either by a disconnection or a driver upgrade, we 
     // must recreate all device resources.
@@ -328,7 +328,7 @@ void DirectX::DeviceResources::configureSwapChain()
     //    );
 
     //ComPtr<IDXGISurface2> dxgiBackBuffer;
-    //DX::ThrowIfFailed(
+    //DirectX::ThrowIfFailed(
     //    m_swapChain->GetBuffer(0, IID_PPV_ARGS(&dxgiBackBuffer))
     //);
 
