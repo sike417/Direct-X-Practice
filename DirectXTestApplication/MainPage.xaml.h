@@ -8,6 +8,7 @@
 #include "MainPage.g.h"
 #include "DeviceResources.h"
 #include "DirectXMain.h"
+#include "GameCamera.h"
 
 namespace DirectXTestApplication
 {
@@ -20,10 +21,8 @@ namespace DirectXTestApplication
         MainPage();
 
     private:
-        void Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
-
-    private:
         std::shared_ptr<DirectX::DeviceResources> m_spDeviceResources;
+        std::shared_ptr<DirectX::GameCamera> m_spGameCamera;
         std::unique_ptr<DirectX::DirectXMain> m_spDirectxMain;
         std::unique_ptr<GraphicsScenes::IScene> m_spRenderScene;
 

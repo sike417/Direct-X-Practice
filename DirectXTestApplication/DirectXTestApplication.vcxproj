@@ -176,6 +176,7 @@
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="DirectXHelper.h" />
     <ClInclude Include="DirectXMain.h" />
+    <ClInclude Include="GameCamera.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
@@ -216,6 +217,7 @@
     </ClCompile>
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="DirectXMain.cpp" />
+    <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="MainPage.xaml.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>

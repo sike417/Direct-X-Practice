@@ -43,6 +43,9 @@
     <ClCompile Include="RenderCubeScene.cpp">
       <Filter>Scenes\RenderCubeScene</Filter>
     </ClCompile>
+    <ClCompile Include="GameCamera.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXMain.h">
@@ -68,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="RenderCubeScene.h">
       <Filter>Scenes\RenderCubeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCamera.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

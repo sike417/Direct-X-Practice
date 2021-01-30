@@ -30,6 +30,8 @@ MainPage::MainPage()
     m_spDeviceResources = std::make_shared<DeviceResources>();
     m_spDeviceResources->SetSwapChainPanel(swapChainPanel);
 
+    m_spGameCamera = std::make_shared<GameCamera>(m_spDeviceResources);
+
     // Register our SwapChainPanel to get independent input pointer events
     auto workItemHandler = ref new WorkItemHandler([this](IAsyncAction^)
         {
@@ -52,45 +54,36 @@ MainPage::MainPage()
     // Run task on a dedicated high priority background thread.
     m_inputLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
 
-    m_spRenderScene = std::make_unique<GraphicsScenes::RenderCubeScene>(m_spDeviceResources);
+    m_spRenderScene = std::make_unique<GraphicsScenes::RenderCubeScene>(m_spDeviceResources, m_spGameCamera);
 
     m_spDirectxMain = std::make_unique<DirectXMain>(m_spDeviceResources);
     m_spDirectxMain->SetCurrentScene(m_spRenderScene.get());
     m_spDirectxMain->StartRenderLoop();
 }
 
-
-void DirectXTestApplication::MainPage::Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
-{
-
-}
-
 void MainPage::OnPointerPressed(Object^ sender, PointerEventArgs^ e)
 {
     // When the pointer is pressed begin tracking the pointer movement.
-    m_spRenderScene->StartTracking();
+    m_spGameCamera->LockCamera();
 }
 
 void MainPage::OnPointerMoved(Object^ sender, PointerEventArgs^ e)
 {
-    m_spRenderScene->TrackingUpdate(e->CurrentPoint->Position.X);
-    // Update the pointer tracking code.
-    /*if (m_main->IsTracking())
+    if (m_spGameCamera->IsCameraLocked())
     {
-        m_main->TrackingUpdate(e->CurrentPoint->Position.X);
-    }*/
+        m_spRenderScene->TrackingUpdate(e->CurrentPoint->Position.X);
+    }
 }
 
 void MainPage::OnPointerReleased(Object^ sender, PointerEventArgs^ e)
 {
     // Stop tracking pointer movement when the pointer is released.
-    m_spRenderScene->StopTracking();
+    m_spGameCamera->UnlockCamera();
 }
 
 void DirectXTestApplication::MainPage::swapChainPanel_SizeChanged(Platform::Object^ sender, Windows::UI::Xaml::SizeChangedEventArgs^ e)
 {
     Concurrency::critical_section::scoped_lock lock(m_spDirectxMain->GetCriticalSection());
     m_spDeviceResources->SetLogicalSize(e->NewSize);
-    m_spRenderScene->CreateWindowSizeDependentResources();
-    //m_spDirectxMain->CreateWindowSizeDependentResources();
+    m_spGameCamera->SyncCameraWithWindowSize();
 }
