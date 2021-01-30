@@ -27,6 +27,15 @@ namespace DirectXTestApplication
         std::unique_ptr<DirectX::DirectXMain> m_spDirectxMain;
         std::unique_ptr<GraphicsScenes::IScene> m_spRenderScene;
 
+        // Track our independent input on a background worker thread.
+        Windows::Foundation::IAsyncAction^ m_inputLoopWorker;
+        Windows::UI::Core::CoreIndependentInputSource^ m_coreInput;
+
+        // Independent input handling functions.
+        void OnPointerPressed(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
+        void OnPointerMoved(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
+        void OnPointerReleased(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
+
         void swapChainPanel_SizeChanged(Platform::Object^ sender, Windows::UI::Xaml::SizeChangedEventArgs^ e);
     };
 }

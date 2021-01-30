@@ -11,6 +11,9 @@ namespace DirectX
         void SetLogicalSize(Windows::Foundation::Size logicalSize);
         void PresentView();
 
+        // The size of the render target, in pixels.
+        Windows::Foundation::Size   GetOutputSize() const { return m_outputSize; }
+
         // D3D Accessors.
         ID3D11Device3* GetD3DDevice() const { return m_d3dDevice.Get(); }
         ID3D11DeviceContext3* GetD3DDeviceContext() const { return m_d3dContext.Get(); }
