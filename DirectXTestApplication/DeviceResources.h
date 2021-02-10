@@ -10,6 +10,7 @@ namespace DirectX
         void SetSwapChainPanel(Windows::UI::Xaml::Controls::SwapChainPanel^ panel);
         void SetLogicalSize(Windows::Foundation::Size logicalSize);
         void PresentView();
+        uint8_t* GetLastRenderedFrame(UINT& width, UINT& height, size_t& bufferLength);
 
         // The size of the render target, in pixels.
         Windows::Foundation::Size   GetOutputSize() const { return m_outputSize; }
@@ -54,5 +55,7 @@ namespace DirectX
 
         // Variables that take into account whether the app supports high resolution screens or not.
         float                                            m_effectiveDpi;
+
+        Concurrency::critical_section                    m_swapChainCriticalSection;
     };
 }

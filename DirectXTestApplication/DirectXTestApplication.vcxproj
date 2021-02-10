@@ -164,6 +164,7 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -173,6 +174,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CaptureManager.h" />
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="DirectXHelper.h" />
     <ClInclude Include="DirectXMain.h" />
@@ -215,6 +217,7 @@
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
+    <ClCompile Include="CaptureManager.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="DirectXMain.cpp" />
     <ClCompile Include="GameCamera.cpp" />

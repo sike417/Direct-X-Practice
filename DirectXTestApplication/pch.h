@@ -19,5 +19,7 @@
 #include <concrt.h>
 #include <collection.h>
 #include <ppltasks.h>
+#include <algorithm>
+#include <math.h>
 
 #include "App.xaml.h"

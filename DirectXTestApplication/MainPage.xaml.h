@@ -9,6 +9,7 @@
 #include "DeviceResources.h"
 #include "DirectXMain.h"
 #include "GameCamera.h"
+#include "CaptureManager.h"
 
 namespace DirectXTestApplication
 {
@@ -25,6 +26,7 @@ namespace DirectXTestApplication
         std::shared_ptr<DirectX::GameCamera> m_spGameCamera;
         std::unique_ptr<DirectX::DirectXMain> m_spDirectxMain;
         std::unique_ptr<GraphicsScenes::IScene> m_spRenderScene;
+        std::unique_ptr<DirectX::CaptureManager> m_spCaptureManager;
 
         // Track our independent input on a background worker thread.
         Windows::Foundation::IAsyncAction^ m_inputLoopWorker;
@@ -36,5 +38,6 @@ namespace DirectXTestApplication
         void OnPointerReleased(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
 
         void swapChainPanel_SizeChanged(Platform::Object^ sender, Windows::UI::Xaml::SizeChangedEventArgs^ e);
+        void captureScreenImage(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
     };
 }
