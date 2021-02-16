@@ -31,6 +31,7 @@ MainPage::MainPage()
     m_spDeviceResources->SetSwapChainPanel(swapChainPanel);
 
     m_spGameCamera = std::make_shared<GameCamera>(m_spDeviceResources);
+    m_spCaptureManager = std::make_unique<MediaUtils::CaptureManager>(m_spDeviceResources);
 
     // Register our SwapChainPanel to get independent input pointer events
     auto workItemHandler = ref new WorkItemHandler([this](IAsyncAction^)
@@ -86,4 +87,16 @@ void DirectXTestApplication::MainPage::swapChainPanel_SizeChanged(Platform::Obje
     Concurrency::critical_section::scoped_lock lock(m_spDirectxMain->GetCriticalSection());
     m_spDeviceResources->SetLogicalSize(e->NewSize);
     m_spGameCamera->SyncCameraWithWindowSize();
+}
+
+
+void DirectXTestApplication::MainPage::captureScreenImage(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+    m_spCaptureManager->SaveImage();
+}
+
+
+void DirectXTestApplication::MainPage::toggleClipCapture(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+    m_spCaptureManager->SaveClip();
 }

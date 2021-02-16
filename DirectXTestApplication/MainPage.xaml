@@ -29,8 +29,8 @@
         </Canvas>
 
         <CommandBar Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="Black" Foreground="White">
-            <AppBarButton Icon="Camera" Label="Save Image" Foreground="White"/>
-            <AppBarToggleButton Icon="Video" Label="Save Clip" Foreground="White"/>
+            <AppBarButton Icon="Camera" Label="Save Image" Foreground="White" Click="captureScreenImage"/>
+            <AppBarToggleButton Icon="Video" Label="Save Clip" Foreground="White" Click="toggleClipCapture"/>
         </CommandBar>
     </Grid>
 </Page>

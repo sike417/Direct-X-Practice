@@ -23,6 +23,12 @@
     <Filter Include="Scenes\RenderCubeScene">
       <UniqueIdentifier>{e08f9e1a-f77f-4ab6-93fc-b98871cab530}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MediaUtils">
+      <UniqueIdentifier>{241b96d2-dad9-4d45-8b02-265bf94f48b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ffmpeg">
+      <UniqueIdentifier>{2afdd11e-48d0-44b7-8088-f5574d1727e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -45,6 +51,12 @@
     </ClCompile>
     <ClCompile Include="GameCamera.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CaptureManager.cpp">
+      <Filter>MediaUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="FFMPEGEncoder.cpp">
+      <Filter>MediaUtils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +87,13 @@
     <ClInclude Include="GameCamera.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="CaptureManager.h">
+      <Filter>MediaUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="FFMPEGEncoder.h">
+      <Filter>MediaUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
@@ -112,5 +131,34 @@
     <FxCompile Include="RenderCubePixelShader.hlsl">
       <Filter>Scenes\RenderCubeScene</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectXTestApplication.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="ffmpeg\bin\avcodec-58.dll">
+      <Filter>ffmpeg</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ffmpeg\bin\avdevice-58.dll">
+      <Filter>ffmpeg</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ffmpeg\bin\avfilter-7.dll">
+      <Filter>ffmpeg</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ffmpeg\bin\avformat-58.dll">
+      <Filter>ffmpeg</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ffmpeg\bin\avutil-56.dll">
+      <Filter>ffmpeg</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ffmpeg\bin\postproc-55.dll">
+      <Filter>ffmpeg</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ffmpeg\bin\swresample-3.dll">
+      <Filter>ffmpeg</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ffmpeg\bin\swscale-5.dll">
+      <Filter>ffmpeg</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@ using namespace Windows::Graphics::Display;
 using namespace Windows::UI::Core;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Platform;
+using namespace Concurrency;
 
 namespace DisplayMetrics
 {
@@ -47,6 +48,8 @@ void DirectX::DeviceResources::SetSwapChainPanel(Windows::UI::Xaml::Controls::Sw
 {
     DisplayInformation^ currentDisplayInformation = DisplayInformation::GetForCurrentView();
 
+    critical_section::scoped_lock lock(m_swapChainCriticalSection);
+
     m_swapChainPanel = panel;
     m_logicalSize = Windows::Foundation::Size(static_cast<float>(panel->ActualWidth), static_cast<float>(panel->ActualHeight));
     m_dpi = currentDisplayInformation->LogicalDpi;
@@ -65,11 +68,16 @@ void DirectX::DeviceResources::SetLogicalSize(Windows::Foundation::Size logicalS
 
 void DirectX::DeviceResources::PresentView()
 {
-    // The first argument instructs DXGI to block until VSync, putting the application
-    // to sleep until the next VSync. This ensures we don't waste any cycles rendering
-    // frames that will never be displayed to the screen.
-    DXGI_PRESENT_PARAMETERS parameters = { 0 };
-    HRESULT hr = m_swapChain->Present1(1, 0, &parameters);
+    HRESULT hr = S_OK;
+
+    {
+        critical_section::scoped_lock lock(m_swapChainCriticalSection);
+        // The first argument instructs DXGI to block until VSync, putting the application
+        // to sleep until the next VSync. This ensures we don't waste any cycles rendering
+        // frames that will never be displayed to the screen.
+        DXGI_PRESENT_PARAMETERS parameters = { 0 };
+        hr = m_swapChain->Present1(1, 0, &parameters);
+    }
 
     // Discard the contents of the render target.
     // This is a valid operation only when the existing contents will be entirely
@@ -89,6 +97,73 @@ void DirectX::DeviceResources::PresentView()
     {
         DirectX::ThrowIfFailed(hr);
     }
+}
+
+uint8_t* DirectX::DeviceResources::GetLastRenderedFrame(UINT& width, UINT& height, size_t& bufferLength)
+{
+    width = height = bufferLength = 0;
+
+    critical_section::scoped_lock lock(m_swapChainCriticalSection);
+
+    // get the backbuffer from the swapchain.
+    ComPtr<ID3D11Texture2D1> backBuffer;
+    DirectX::ThrowIfFailed(
+        m_swapChain->GetBuffer(0, IID_PPV_ARGS(&backBuffer))
+    );
+
+    // copy the back buffer to a staging area
+    D3D11_TEXTURE2D_DESC description;
+    backBuffer->GetDesc(&description);
+
+    // modify the description to allow cpu access
+    description.BindFlags = 0;
+    description.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+    description.Usage = D3D11_USAGE_STAGING;
+
+    // create temporary surface.
+    ComPtr<ID3D11Texture2D> pNewSurface;
+    HRESULT hr = m_d3dDevice->CreateTexture2D(&description, NULL, &pNewSurface);
+
+    // Copy the back buffer to the new staging area.
+    if (pNewSurface)
+    {
+        m_d3dContext->CopyResource(pNewSurface.Get(), backBuffer.Get());
+
+        D3D11_MAPPED_SUBRESOURCE resource;
+        m_d3dContext->Map(pNewSurface.Get(), D3D11CalcSubresource(0, 0, 0), D3D11_MAP_READ, 0, &resource);
+
+        const unsigned char* source = static_cast<const unsigned char*>(resource.pData);
+        size_t slicePitch, rowPitch, rowCount;
+        hr = DirectX::GetSurfaceInfo(description.Width, description.Height, description.Format, &slicePitch, &rowPitch, &rowCount);
+
+        if (FAILED(hr))
+        {
+            // DO SOMETHING
+        }
+
+        width = description.Width;
+        height = description.Height;
+
+        std::unique_ptr<uint8_t[]> pixels(new (std::nothrow) uint8_t[slicePitch]);
+        bufferLength = slicePitch;
+        uint8_t* dptr = pixels.get();
+
+        size_t msize = std::min<size_t>(rowPitch, resource.RowPitch);
+
+        for (size_t h = 0; h < rowCount; ++h)
+        {
+            memcpy(dptr, source, msize);
+
+            source += resource.RowPitch;
+            dptr += rowPitch;
+        }
+
+        m_d3dContext->Unmap(pNewSurface.Get(), 0);
+        
+        return pixels.release();
+    }
+
+    return nullptr;
 }
 
 void DirectX::DeviceResources::initializeIndependentDeviceResources()
