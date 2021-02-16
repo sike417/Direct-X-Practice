@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <cstdio>
 #include <wrl.h>
 #include <wrl/client.h>
 #include <dxgi1_4.h>
@@ -21,5 +22,7 @@
 #include <ppltasks.h>
 #include <algorithm>
 #include <math.h>
+#include <gsl\gsl_util>
+#include <string>
 
 #include "App.xaml.h"

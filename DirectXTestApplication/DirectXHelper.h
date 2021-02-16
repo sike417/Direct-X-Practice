@@ -2,6 +2,17 @@
 
 namespace DirectX
 {
+    inline std::string make_string(const std::wstring& wstring)
+    {
+        auto wideData = wstring.c_str();
+        int bufferSize = WideCharToMultiByte(CP_UTF8, 0, wideData, -1, nullptr, 0, NULL, NULL);
+        auto utf8 = std::make_unique<char[]>(bufferSize);
+        if (0 == WideCharToMultiByte(CP_UTF8, 0, wideData, -1, utf8.get(), bufferSize, NULL, NULL))
+            throw std::exception("Can't convert string to UTF8");
+
+        return std::string(utf8.get());
+    }
+
     inline void ThrowIfFailed(HRESULT hr)
     {
         if (FAILED(hr))

@@ -31,7 +31,7 @@ MainPage::MainPage()
     m_spDeviceResources->SetSwapChainPanel(swapChainPanel);
 
     m_spGameCamera = std::make_shared<GameCamera>(m_spDeviceResources);
-    m_spCaptureManager = std::make_unique<DirectX::CaptureManager>(m_spDeviceResources);
+    m_spCaptureManager = std::make_unique<MediaUtils::CaptureManager>(m_spDeviceResources);
 
     // Register our SwapChainPanel to get independent input pointer events
     auto workItemHandler = ref new WorkItemHandler([this](IAsyncAction^)
@@ -93,4 +93,10 @@ void DirectXTestApplication::MainPage::swapChainPanel_SizeChanged(Platform::Obje
 void DirectXTestApplication::MainPage::captureScreenImage(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
     m_spCaptureManager->SaveImage();
+}
+
+
+void DirectXTestApplication::MainPage::toggleClipCapture(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+    m_spCaptureManager->SaveClip();
 }

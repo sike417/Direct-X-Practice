@@ -3,7 +3,7 @@
 #include "DeviceResources.h"
 #include <memory>
 
-namespace DirectX
+namespace MediaUtils
 {
     class CaptureManager
     {
@@ -11,6 +11,7 @@ namespace DirectX
         CaptureManager(std::shared_ptr<DirectX::DeviceResources> spDeviceResource);
 
         void SaveImage();
+        void SaveClip();
         void SetSaveLocation(const std::string& saveLocation);
         
     private:
