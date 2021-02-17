@@ -24,6 +24,17 @@ namespace MediaUtils
 
         struct SwsContext* sws_ctx;
     };
+
+    static void avlog_cb(void* test, int level, const char* szFmt, va_list varg) 
+    {
+        std::string formattedString;
+
+        const int outputSize = _vscprintf(szFmt, varg);
+        formattedString.resize(outputSize + 1);
+
+        vsprintf_s(&formattedString[0], formattedString.size(), szFmt, varg);
+        OutputDebugStringA(formattedString.c_str());
+    }
 }
 
 using namespace MediaUtils;
@@ -46,7 +57,11 @@ FFMPEGEncoder::FFMPEGEncoder(const std::string& fileName,
     , m_pFormatContext(nullptr)
     , m_pOutputFormat(nullptr)
 {
-    auto temp = 1234;
+    av_log_set_callback(avlog_cb);
+    av_log_set_level(AV_LOG_VERBOSE);
+    
+    // adjust the height to be divisible by 2.
+    m_iDesiredHeight = m_iDesiredHeight % 2 ? m_iDesiredHeight + 1 : m_iDesiredHeight;
 }
 
 
@@ -170,7 +185,7 @@ bool FFMPEGEncoder::InitializeEncoder()
     ret = avio_open(&m_pFormatContext->pb, m_fileName.c_str(), AVIO_FLAG_WRITE);
     if (ret < 0)
     {
-        int outputsize = sprintf(nullptr, "Could not open '%s'", m_fileName.c_str());
+        int outputsize = snprintf(nullptr, 0, "Could not open '%s'", m_fileName.c_str());
 
         std::string outputBuffer;
         outputBuffer.resize(outputsize);
@@ -294,7 +309,7 @@ int FFMPEGEncoder::open_video(AVCodec* codec, OutputStream* videoStream, AVDicti
         char buf[256];
         av_strerror(ret, buf, sizeof(buf));
 
-        int outputsize = sprintf(nullptr, "Could not open video codec: %s", buf);
+        int outputsize = snprintf(nullptr, 0, "Could not open video codec: %s", buf);
 
         std::string outputBuffer;
         outputBuffer.resize(outputsize);
@@ -387,7 +402,7 @@ bool FFMPEGEncoder::add_stream(OutputStream** dpVideoStream, AVFormatContext* fo
     //*codec = avcodec_find_encoder_by_name("libx264rgb");
     if (!pVideoStream->pCodec)
     {
-        int outputsize = sprintf(nullptr, "Could not find pEncoder for '%s'\n", avcodec_get_name(codecId));
+        int outputsize = snprintf(nullptr, 0, "Could not find pEncoder for '%s'\n", avcodec_get_name(codecId));
 
         std::string outputBuffer;
         outputBuffer.resize(outputsize);
