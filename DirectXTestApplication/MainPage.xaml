@@ -18,7 +18,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border x:Name="SwapChainPanelBorder" Grid.Column="1" BorderBrush="Black" BorderThickness="1 1 1 0">
+        <Border x:Name="SwapChainPanelBorder" Grid.Column="1" BorderBrush="Black" BorderThickness="1 1 1 1">
             <SwapChainPanel x:Name="swapChainPanel" SizeChanged="swapChainPanel_SizeChanged"/>
         </Border>
 

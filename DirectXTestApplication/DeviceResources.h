@@ -1,5 +1,8 @@
 #pragma once
 
+#include <atlcomcli.h>
+#include <atlbase.h>
+
 namespace DirectX
 {
     class DeviceResources
@@ -56,6 +59,5 @@ namespace DirectX
         // Variables that take into account whether the app supports high resolution screens or not.
         float                                            m_effectiveDpi;
 
-        Concurrency::critical_section                    m_swapChainCriticalSection;
     };
 }

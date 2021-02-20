@@ -27,6 +27,7 @@ void DirectX::DirectXMain::StartRenderLoop()
         {
             critical_section::scoped_lock lock(m_criticalSection);
             update();
+            
             if (render())
             {
                 // Present

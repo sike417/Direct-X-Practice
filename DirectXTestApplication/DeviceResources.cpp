@@ -35,7 +35,7 @@ DirectX::DeviceResources::DeviceResources()
     , m_swapChainPanel(nullptr)
     , m_d3dFeatureLevel(D3D_FEATURE_LEVEL_9_1)
     , m_d3dRenderTargetSize(0, 0)
-    , m_outputSize(0,0)
+    , m_outputSize(0, 0)
     , m_logicalSize(0, 0)
     , m_dpi(0)
     , m_effectiveDpi(0)
@@ -47,8 +47,6 @@ DirectX::DeviceResources::DeviceResources()
 void DirectX::DeviceResources::SetSwapChainPanel(Windows::UI::Xaml::Controls::SwapChainPanel^ panel)
 {
     DisplayInformation^ currentDisplayInformation = DisplayInformation::GetForCurrentView();
-
-    critical_section::scoped_lock lock(m_swapChainCriticalSection);
 
     m_swapChainPanel = panel;
     m_logicalSize = Windows::Foundation::Size(static_cast<float>(panel->ActualWidth), static_cast<float>(panel->ActualHeight));
@@ -70,22 +68,24 @@ void DirectX::DeviceResources::PresentView()
 {
     HRESULT hr = S_OK;
 
-    {
-        critical_section::scoped_lock lock(m_swapChainCriticalSection);
-        // The first argument instructs DXGI to block until VSync, putting the application
-        // to sleep until the next VSync. This ensures we don't waste any cycles rendering
-        // frames that will never be displayed to the screen.
-        DXGI_PRESENT_PARAMETERS parameters = { 0 };
-        hr = m_swapChain->Present1(1, 0, &parameters);
-    }
+    // The first argument instructs DXGI to block until VSync, putting the application
+    // to sleep until the next VSync. This ensures we don't waste any cycles rendering
+    // frames that will never be displayed to the screen.
+    DXGI_PRESENT_PARAMETERS parameters = { 0 };
+
+    hr = m_swapChain->Present1(1, 0, &parameters);
 
     // Discard the contents of the render target.
     // This is a valid operation only when the existing contents will be entirely
     // overwritten. If dirty or scroll rects are used, this call should be modified.
-    m_d3dContext->DiscardView1(m_renderTargetView.Get(), nullptr, 0);
+
+    // TODO: Determine if this should be added back in. just uncommenting this prevents capture cause the back buffer is blank.
+    // There may be performance improvements by copying off the back buffer, storing it in a member variable and then discarding the view on presenting time.
+    // and then allow the capture manager to simply copy the member variable when it needs to.
+    //m_d3dContext->DiscardView1(m_renderTargetView.Get(), nullptr, 0);
 
     // Discard the contents of the depth stencil.
-    m_d3dContext->DiscardView1(m_depthStencilView.Get(), nullptr, 0);
+    //m_d3dContext->DiscardView1(m_depthStencilView.Get(), nullptr, 0);
 
     // If the device was removed either by a disconnection or a driver upgrade, we 
     // must recreate all device resources.
@@ -103,7 +103,7 @@ uint8_t* DirectX::DeviceResources::GetLastRenderedFrame(UINT& width, UINT& heigh
 {
     width = height = bufferLength = 0;
 
-    critical_section::scoped_lock lock(m_swapChainCriticalSection);
+    //ATL::CComCritSecLock<CComAutoCriticalSection> swapChainLock(m_swapChainCriticalSection);
 
     // get the backbuffer from the swapchain.
     ComPtr<ID3D11Texture2D1> backBuffer;
@@ -159,7 +159,7 @@ uint8_t* DirectX::DeviceResources::GetLastRenderedFrame(UINT& width, UINT& heigh
         }
 
         m_d3dContext->Unmap(pNewSurface.Get(), 0);
-        
+
         return pixels.release();
     }
 

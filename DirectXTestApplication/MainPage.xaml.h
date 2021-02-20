@@ -24,7 +24,7 @@ namespace DirectXTestApplication
     private:
         std::shared_ptr<DirectX::DeviceResources> m_spDeviceResources;
         std::shared_ptr<DirectX::GameCamera> m_spGameCamera;
-        std::unique_ptr<DirectX::DirectXMain> m_spDirectxMain;
+        std::shared_ptr<DirectX::DirectXMain> m_spDirectxMain;
         std::unique_ptr<GraphicsScenes::IScene> m_spRenderScene;
         std::unique_ptr<MediaUtils::CaptureManager> m_spCaptureManager;
 

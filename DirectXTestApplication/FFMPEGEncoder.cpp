@@ -59,9 +59,6 @@ FFMPEGEncoder::FFMPEGEncoder(const std::string& fileName,
 {
     av_log_set_callback(avlog_cb);
     av_log_set_level(AV_LOG_VERBOSE);
-    
-    // adjust the height to be divisible by 2.
-    m_iDesiredHeight = m_iDesiredHeight % 2 ? m_iDesiredHeight + 1 : m_iDesiredHeight;
 }
 
 
@@ -136,6 +133,13 @@ bool FFMPEGEncoder::FinalizeEncoding()
 
 bool FFMPEGEncoder::InitializeEncoder()
 {
+    //Validate input height
+    if (m_iDesiredHeight % 2 != 0)
+    {
+        // Input height needs to be a multiple of 2.
+        return false;
+    }
+
     int ret = 0;
 
     avformat_alloc_output_context2(&m_pFormatContext, nullptr, nullptr, m_fileName.c_str());

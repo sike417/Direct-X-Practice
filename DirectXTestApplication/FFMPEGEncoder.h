@@ -49,7 +49,7 @@ namespace MediaUtils
 
         const std::string m_fileName;
         const int m_iDesiredWidth;
-        int m_iDesiredHeight;
+        const int m_iDesiredHeight;
         const int m_iFrameRate;
 
         bool m_bIsFirstFrame;

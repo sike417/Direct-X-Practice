@@ -30,8 +30,10 @@ MainPage::MainPage()
     m_spDeviceResources = std::make_shared<DeviceResources>();
     m_spDeviceResources->SetSwapChainPanel(swapChainPanel);
 
+    m_spDirectxMain = std::make_shared<DirectXMain>(m_spDeviceResources);
+
     m_spGameCamera = std::make_shared<GameCamera>(m_spDeviceResources);
-    m_spCaptureManager = std::make_unique<MediaUtils::CaptureManager>(m_spDeviceResources);
+    m_spCaptureManager = std::make_unique<MediaUtils::CaptureManager>(m_spDeviceResources, m_spDirectxMain);
 
     // Register our SwapChainPanel to get independent input pointer events
     auto workItemHandler = ref new WorkItemHandler([this](IAsyncAction^)
@@ -57,7 +59,6 @@ MainPage::MainPage()
 
     m_spRenderScene = std::make_unique<GraphicsScenes::RenderCubeScene>(m_spDeviceResources, m_spGameCamera);
 
-    m_spDirectxMain = std::make_unique<DirectXMain>(m_spDeviceResources);
     m_spDirectxMain->SetCurrentScene(m_spRenderScene.get());
     m_spDirectxMain->StartRenderLoop();
 }
