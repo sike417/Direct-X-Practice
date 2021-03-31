@@ -3,6 +3,8 @@
 #include "DeviceResources.h"
 #include "IScene.h"
 
+using namespace Concurrency;
+
 namespace DirectX
 {
     class DirectXMain
@@ -11,9 +13,16 @@ namespace DirectX
         DirectXMain(std::shared_ptr<DeviceResources> deviceResource);
 
         Concurrency::critical_section& GetCriticalSection() { return m_criticalSection; }
-        void SetCurrentScene(GraphicsScenes::IScene* nextScene) { m_pCurrentScene = nextScene; }
+
+        void SetCurrentScene(GraphicsScenes::IScene* nextScene) 
+        {
+            critical_section::scoped_lock lock(m_criticalSection);
+            m_pCurrentScene = nextScene; 
+        }
 
         void StartRenderLoop();
+
+        void TrackingUpdate(float positionX);
 
     private:
         void update();

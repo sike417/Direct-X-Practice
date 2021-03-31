@@ -5,9 +5,10 @@
 
 #include "pch.h"
 #include "MainPage.xaml.h"
-#include "RenderCubeScene.h"
+#include "ResourcesWrapper.h"
 
 using namespace DirectXTestApplication;
+using namespace DirectXTestApplication::Common;
 using namespace DirectX;
 
 using namespace Platform;
@@ -57,9 +58,12 @@ MainPage::MainPage()
     // Run task on a dedicated high priority background thread.
     m_inputLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
 
-    m_spRenderScene = std::make_unique<GraphicsScenes::RenderCubeScene>(m_spDeviceResources, m_spGameCamera);
+    auto pResources = new ResourcesWrapper();
+    pResources->M_spDirectxMain = m_spDirectxMain;
+    pResources->M_spDeviceResources = m_spDeviceResources;
+    pResources->M_spGameCamera = m_spGameCamera;
+    ScenePicker = ref new ScenePickerViewModel(pResources);
 
-    m_spDirectxMain->SetCurrentScene(m_spRenderScene.get());
     m_spDirectxMain->StartRenderLoop();
 }
 
@@ -73,7 +77,7 @@ void MainPage::OnPointerMoved(Object^ sender, PointerEventArgs^ e)
 {
     if (m_spGameCamera->IsCameraLocked())
     {
-        m_spRenderScene->TrackingUpdate(e->CurrentPoint->Position.X);
+        m_spDirectxMain->TrackingUpdate(e->CurrentPoint->Position.X);
     }
 }
 

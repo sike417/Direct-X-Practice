@@ -10,6 +10,7 @@
 #include "DirectXMain.h"
 #include "GameCamera.h"
 #include "CaptureManager.h"
+#include "ScenePickerViewModel.h"
 
 namespace DirectXTestApplication
 {
@@ -21,11 +22,13 @@ namespace DirectXTestApplication
     public:
         MainPage();
 
+        property DirectXTestApplication::ScenePickerViewModel^ ScenePicker;
+
     private:
+
         std::shared_ptr<DirectX::DeviceResources> m_spDeviceResources;
         std::shared_ptr<DirectX::GameCamera> m_spGameCamera;
         std::shared_ptr<DirectX::DirectXMain> m_spDirectxMain;
-        std::unique_ptr<GraphicsScenes::IScene> m_spRenderScene;
         std::unique_ptr<MediaUtils::CaptureManager> m_spCaptureManager;
 
         // Track our independent input on a background worker thread.

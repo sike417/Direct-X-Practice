@@ -3,7 +3,6 @@
 
 using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
-using namespace Concurrency;
 
 DirectX::DirectXMain::DirectXMain(std::shared_ptr<DeviceResources> deviceResource)
     : m_spDeviceResource(deviceResource)
@@ -37,6 +36,14 @@ void DirectX::DirectXMain::StartRenderLoop()
     });
 
     m_renderLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
+}
+
+void DirectX::DirectXMain::TrackingUpdate(float positionX)
+{
+    if (m_pCurrentScene != nullptr)
+    {
+        m_pCurrentScene->TrackingUpdate(positionX);
+    }
 }
 
 void DirectX::DirectXMain::update()

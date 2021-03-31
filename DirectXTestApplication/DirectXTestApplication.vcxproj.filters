@@ -29,6 +29,18 @@
     <Filter Include="ffmpeg">
       <UniqueIdentifier>{2afdd11e-48d0-44b7-8088-f5574d1727e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Scenes">
+      <UniqueIdentifier>{a7dad17e-a738-44aa-95b7-98e423eb8617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View">
+      <UniqueIdentifier>{e3d4b125-a1be-4e56-bc55-db8cf1fc8a5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View Model">
+      <UniqueIdentifier>{dd0b79b4-019f-4db7-86e8-79372e92fdf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View\Converters">
+      <UniqueIdentifier>{b2d57190-61a2-4ba5-b7cc-f24446df5aff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -43,9 +55,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSelector.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="RenderCubeScene.cpp">
       <Filter>Scenes\RenderCubeScene</Filter>
     </ClCompile>
@@ -57,6 +66,9 @@
     </ClCompile>
     <ClCompile Include="FFMPEGEncoder.cpp">
       <Filter>MediaUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenePickerViewModel.cpp">
+      <Filter>View Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,9 +82,6 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneSelector.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="IScene.h">
@@ -94,6 +103,15 @@
       <Filter>MediaUtils</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ScenePickerViewModel.h">
+      <Filter>View Model</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDataConverter.h">
+      <Filter>View\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourcesWrapper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
@@ -117,12 +135,12 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\Scenes\RenderCube.png">
+      <Filter>Assets\Scenes</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="MainPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="RenderCubeVertexShader.hlsl">
@@ -160,5 +178,10 @@
     <CopyFileToFolders Include="ffmpeg\bin\swscale-5.dll">
       <Filter>ffmpeg</Filter>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainPage.xaml">
+      <Filter>View</Filter>
+    </Page>
   </ItemGroup>
 </Project>

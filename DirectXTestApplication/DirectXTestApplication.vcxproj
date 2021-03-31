@@ -200,8 +200,10 @@
     </ClInclude>
     <ClInclude Include="RenderCubeScene.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SceneSelector.h" />
+    <ClInclude Include="ResourcesWrapper.h" />
+    <ClInclude Include="ScenePickerViewModel.h" />
     <ClInclude Include="ShaderResources.h" />
+    <ClInclude Include="TestDataConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -218,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
+    <Image Include="Assets\Scenes\RenderCube.png" />
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />
     <Image Include="Assets\Square44x44Logo.scale-200.png" />
@@ -248,7 +251,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="RenderCubeScene.cpp" />
-    <ClCompile Include="SceneSelector.cpp" />
+    <ClCompile Include="ScenePickerViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="RenderCubePixelShader.hlsl">
