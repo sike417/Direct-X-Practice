@@ -1,15 +1,14 @@
 #include "pch.h"
-#include "RenderCubeScene.h"
+#include "RenderCircleScene.h"
 #include "DirectXHelper.h"
-#include "CubeRenderable.h"
+#include "CircleRenderableV1.h"
 
 using namespace GraphicsScenes;
 using namespace DXResources;
 using namespace DirectX;
 using namespace Windows::Foundation;
 
-GraphicsScenes::RenderCubeScene::RenderCubeScene()
-    : m_fTotalTime(0)
+GraphicsScenes::RenderCircleScene::RenderCircleScene()
 {
     if (s_spCamera == nullptr || s_spDeviceResources == nullptr)
     {
@@ -19,22 +18,11 @@ GraphicsScenes::RenderCubeScene::RenderCubeScene()
     createDeviceDependentResources();
 }
 
-void GraphicsScenes::RenderCubeScene::Update()
+void GraphicsScenes::RenderCircleScene::Update()
 {
-    static const float TimePerUpdate = (float)(1) / 60;
-    m_fTotalTime += TimePerUpdate;
-
-    float radiansPerSecond = XMConvertToRadians(40);
-    double totalRotation = m_fTotalTime * radiansPerSecond;// timer.GetTotalSeconds()* radiansPerSecond;
-    float radians = static_cast<float>(fmod(totalRotation, XM_2PI));
-
-    DirectX::XMFLOAT4X4 model;
-    XMStoreFloat4x4(&model, XMMatrixTranspose(XMMatrixRotationY(radians)));
-
-    m_vScenePrimitives.front()->SetModelTransform(model);
 }
 
-void GraphicsScenes::RenderCubeScene::Render()
+void GraphicsScenes::RenderCircleScene::Render()
 {
     auto d3dContext = s_spDeviceResources->GetD3DDeviceContext();
     auto vpBuffer = s_spCamera->GetCombinedVPBuffer();
@@ -68,18 +56,18 @@ void GraphicsScenes::RenderCubeScene::Render()
     }
 }
 
-void GraphicsScenes::RenderCubeScene::ActivateScene()
+void GraphicsScenes::RenderCircleScene::ActivateScene()
 {
-    // Eye is at (0,0.7,1.5), looking at point (0,-0.1,0) with the up-vector along the y-axis.
-    static const XMVECTORF32 eye = { 0.0f, 0.7f, 1.5f, 0.0f };
-    static const XMVECTORF32 at = { 0.0f, -0.1f, 0.0f, 0.0f };
+    // Eye is at (0,0,1.5), looking at point (0,0,0) with the up-vector along the y-axis.
+    static const XMVECTORF32 eye = { 0.0f, 0.0f, 1.5f, 0.0f };
+    static const XMVECTORF32 at = { 0.0f, 0.0f, 0.0f, 0.0f };
     static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
 
     s_spCamera->SetCameraView(eye, at, up);
 }
 
-void GraphicsScenes::RenderCubeScene::createDeviceDependentResources()
-{ 
+void GraphicsScenes::RenderCircleScene::createDeviceDependentResources()
+{
     auto d3dContext = s_spDeviceResources->GetD3DDevice();
 
     CD3D11_BUFFER_DESC constantBufferDesc(sizeof(CombinedViewProjectionConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
@@ -88,8 +76,7 @@ void GraphicsScenes::RenderCubeScene::createDeviceDependentResources()
             &constantBufferDesc,
             nullptr,
             &m_vpConstantBuffer
-        )
-    );
+        ));
 
-    m_vScenePrimitives.push_back(new CubeRenderable());
+    m_vScenePrimitives.push_back(new CircleRenderableV1());
 }

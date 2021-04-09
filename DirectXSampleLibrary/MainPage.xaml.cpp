@@ -78,7 +78,8 @@ void MainPage::OnPointerMoved(Object^ sender, PointerEventArgs^ e)
 {
     if (m_spGameCamera->IsCameraLocked())
     {
-        m_spDirectxMain->TrackingUpdate(e->CurrentPoint->Position.X);
+        float radians = DirectX::XM_2PI * 2.0f * e->CurrentPoint->Position.X / m_spDeviceResources->GetOutputSize().Width;
+        //m_spGameCamera->RotateCamera(radians);
     }
 }
 

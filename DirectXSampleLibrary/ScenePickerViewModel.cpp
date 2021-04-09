@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "ScenePickerViewModel.h"
 
+#include "IRenderable.h"
 #include "RenderCubeScene.h"
+#include "RenderCircleScene.h"
 
 using namespace Platform::Collections;
 using namespace GraphicsScenes;
@@ -25,11 +27,20 @@ void ScenePickerViewModel::SelectionChanged(Platform::Object^ sender, SelectionC
 
 void ScenePickerViewModel::initializeScenes()
 {
-    SceneViewModel^ renderCubeScene = ref new SceneViewModel(new RenderCubeScene(m_pResources->M_spDeviceResources, m_pResources->M_spGameCamera));
+    IScene::SetSharedSceneResources(m_pResources->M_spDeviceResources, m_pResources->M_spGameCamera);
+    IRenderable::SetSharedRenderableResources(m_pResources->M_spDeviceResources, m_pResources->M_spGameCamera);
+
+    SceneViewModel^ renderCubeScene = ref new SceneViewModel(new RenderCubeScene());
     renderCubeScene->ImageLocation = "Assets/Scenes/RenderCube.png";
     renderCubeScene->SceneName = "RenderCube";
 
     ObservableSceneList->Append(renderCubeScene);
+
+    SceneViewModel^ RenderCircleSceneV1 = ref new SceneViewModel(new RenderCircleScene());
+    RenderCircleSceneV1->ImageLocation = "Assets/Scenes/RenderCircleV1.png";
+    RenderCircleSceneV1->SceneName = "RenderCircleV1";
+
+    ObservableSceneList->Append(RenderCircleSceneV1);
 
     CurrentlySelectedSceneItem = ObservableSceneList->First()->Current;
 }

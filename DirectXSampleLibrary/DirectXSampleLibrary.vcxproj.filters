@@ -32,6 +32,12 @@
     <Filter Include="Assets\ffmpeg">
       <UniqueIdentifier>{2afdd11e-48d0-44b7-8088-f5574d1727e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GraphicsScenes\RenderSphereScene">
+      <UniqueIdentifier>{9e540e94-950a-405f-aa23-109a20c8e0b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsScenes\Objects">
+      <UniqueIdentifier>{619417c6-5e26-4cb4-ad05-3eafde5e099c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -58,6 +64,21 @@
     </ClCompile>
     <ClCompile Include="GameCamera.cpp">
       <Filter>DXResources</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderCircleScene.cpp">
+      <Filter>GraphicsScenes\RenderSphereScene</Filter>
+    </ClCompile>
+    <ClCompile Include="IScene.cpp">
+      <Filter>GraphicsScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeRenderable.cpp">
+      <Filter>GraphicsScenes\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderable.cpp">
+      <Filter>GraphicsScenes\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleRenderableV1.cpp">
+      <Filter>GraphicsScenes\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +120,18 @@
     <ClInclude Include="ResourcesWrapper.h">
       <Filter>DXResources</Filter>
     </ClInclude>
+    <ClInclude Include="RenderCircleScene.h">
+      <Filter>GraphicsScenes\RenderSphereScene</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderable.h">
+      <Filter>GraphicsScenes\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeRenderable.h">
+      <Filter>GraphicsScenes\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleRenderableV1.h">
+      <Filter>GraphicsScenes\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
@@ -125,16 +158,25 @@
     <Image Include="Assets\Scenes\RenderCube.png">
       <Filter>Assets\Scenes</Filter>
     </Image>
+    <Image Include="Assets\Scenes\DefaultSceneImage.png">
+      <Filter>Assets\Scenes</Filter>
+    </Image>
+    <Image Include="Assets\Scenes\RenderCircleV1.png">
+      <Filter>Assets\Scenes</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="RenderCubeVertexShader.hlsl">
-      <Filter>GraphicsScenes\RenderCubeScene</Filter>
+    <FxCompile Include="DefaultPixelShader.hlsl">
+      <Filter>GraphicsScenes</Filter>
     </FxCompile>
-    <FxCompile Include="RenderCubePixelShader.hlsl">
-      <Filter>GraphicsScenes\RenderCubeScene</Filter>
+    <FxCompile Include="DefaultVertexShader.hlsl">
+      <Filter>GraphicsScenes</Filter>
+    </FxCompile>
+    <FxCompile Include="RenderCircleV1PixelShader.hlsl">
+      <Filter>GraphicsScenes\Objects</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

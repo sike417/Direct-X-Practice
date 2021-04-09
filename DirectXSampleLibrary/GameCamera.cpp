@@ -10,10 +10,7 @@ DXResources::GameCamera::GameCamera(std::shared_ptr<DXResources::DeviceResources
     : m_spDeviceResource(spDeviceResource)
     , m_bIsCameraLocked(false)
 {
-    // Set all mvp elements to identity matrix
-    XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixIdentity());
-    XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixIdentity());
-    XMStoreFloat4x4(&m_constantBufferData.projection, XMMatrixIdentity());
+    initializeDefaultState();
 }
 
 void DXResources::GameCamera::LockCamera()
@@ -66,20 +63,32 @@ void DXResources::GameCamera::SyncCameraWithWindowSize()
        &m_constantBufferData.projection,
        XMMatrixTranspose(perspectiveMatrix * orientationMatrix)
    );
-
-   // TODO: Should this be the responsibility of the individual scenes, not the camera.
-   // TODO: Why is the view used to do this, not the model?
-
-   // Eye is at (0,0.7,1.5), looking at point (0,-0.1,0) with the up-vector along the y-axis.
-   static const XMVECTORF32 eye = { 0.0f, 0.7f, 1.5f, 0.0f };
-   static const XMVECTORF32 at = { 0.0f, -0.1f, 0.0f, 0.0f };
-   static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
-
-   XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtRH(eye, at, up)));
 }
 
-void DXResources::GameCamera::RotateCamera(float radians)
+void DXResources::GameCamera::SetCameraView(XMVECTORF32 eye, XMVECTORF32 at, XMVECTORF32 up)
 {
-    // Prepare to pass the updated model matrix to the shader
-    XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixRotationY(radians)));
+    XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtRH(eye, at, up)));
+}
+
+CombinedViewProjectionConstantBuffer DXResources::GameCamera::GetCombinedVPBuffer()
+{
+    CombinedViewProjectionConstantBuffer vpConstantBufferData;
+    XMMATRIX viewMatrix = XMLoadFloat4x4(&m_constantBufferData.view);
+    XMMATRIX projectionMatrix = XMLoadFloat4x4(&m_constantBufferData.projection);
+
+    XMStoreFloat4x4(&vpConstantBufferData.viewProjectionMatrix, projectionMatrix * viewMatrix);
+
+    return vpConstantBufferData;
+}
+
+void DXResources::GameCamera::initializeDefaultState()
+{
+    XMStoreFloat4x4(&m_constantBufferData.projection, XMMatrixIdentity());
+ 
+    // Eye is at (0,0,1.5), looking at point (0,0,0) with the up-vector along the y-axis.
+    static const XMVECTORF32 eye = { 0.0f, 0.0f, 1.5f, 0.0f };
+    static const XMVECTORF32 at = { 0.0f, 0.0f, 0.0f, 0.0f };
+    static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
+
+    XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtRH(eye, at, up)));
 }

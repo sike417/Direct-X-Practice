@@ -1,7 +1,42 @@
 #pragma once
 
+using namespace DirectX;
+
 namespace DXResources
 {
+    inline XMFLOAT3 CalculateNDCForPosition(XMFLOAT3 position, XMFLOAT4X4 modelMatrix, XMFLOAT4X4 vpMatrix)
+    {
+        XMFLOAT4 wPosition = XMFLOAT4(position.x, position.y, position.z, 1);
+
+        XMVECTOR posVector = XMLoadFloat4(&wPosition);
+        posVector = XMVector4Transform(posVector, XMLoadFloat4x4(&modelMatrix));
+        posVector = XMVector4Transform(posVector, XMLoadFloat4x4(&vpMatrix));
+
+        XMStoreFloat4(&wPosition, posVector);
+
+        // Divide each parameter by w in order to turn it into the NDC (Normalized Device Coordinates).
+        position.x = (wPosition.x / wPosition.w + 1);
+        position.y = (wPosition.y / wPosition.w + 1);
+        position.z = (wPosition.z / wPosition.w + 1);  
+
+        return position;
+    }
+
+    inline XMFLOAT3 ConvertNDCToPixelCoord(XMFLOAT3 position, D3D11_VIEWPORT viewport)
+    {
+        position.x = position.x * viewport.Width * .5 + viewport.TopLeftX;
+        position.y = position.y * viewport.Height * .5 + viewport.TopLeftY;
+        position.z = position.z * (viewport.MaxDepth - viewport.MinDepth) + viewport.MinDepth; // need to test if this works
+
+        return position;
+    }
+
+    inline float CalculateDistanceBetweenPoints(XMFLOAT3 position1, XMFLOAT3 position2)
+    {
+        float distance = pow(position2.x - position1.x, 2) + pow(position2.y - position1.y, 2) + pow(position2.z - position1.z, 2);
+        return sqrt(distance);
+    }
+
     inline std::string make_string(const std::wstring& wstring)
     {
         auto wideData = wstring.c_str();

@@ -38,14 +38,6 @@ void DXResources::DirectXMain::StartRenderLoop()
     m_renderLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
 }
 
-void DXResources::DirectXMain::TrackingUpdate(float positionX)
-{
-    if (m_pCurrentScene != nullptr)
-    {
-        m_pCurrentScene->TrackingUpdate(positionX);
-    }
-}
-
 void DXResources::DirectXMain::update()
 {
     if (m_pCurrentScene != nullptr)

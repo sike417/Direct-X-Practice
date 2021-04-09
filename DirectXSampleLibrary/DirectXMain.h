@@ -18,11 +18,14 @@ namespace DXResources
         {
             critical_section::scoped_lock lock(m_criticalSection);
             m_pCurrentScene = nextScene; 
+
+            if (m_pCurrentScene != nullptr)
+            {
+                m_pCurrentScene->ActivateScene();
+            }
         }
 
         void StartRenderLoop();
-
-        void TrackingUpdate(float positionX);
 
     private:
         void update();

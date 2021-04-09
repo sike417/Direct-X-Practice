@@ -11,7 +11,6 @@ namespace DirectXSampleLibrary::Converters
         // Inherited via IValueConverter
         virtual Platform::Object^ Convert(Platform::Object^ value, Windows::UI::Xaml::Interop::TypeName targetType, Platform::Object^ parameter, Platform::String^ language)
         {
-            auto temp = (String^)value;
             return value;
         }
 
