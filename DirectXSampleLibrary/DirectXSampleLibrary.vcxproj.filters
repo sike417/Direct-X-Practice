@@ -32,11 +32,14 @@
     <Filter Include="Assets\ffmpeg">
       <UniqueIdentifier>{2afdd11e-48d0-44b7-8088-f5574d1727e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GraphicsScenes\RenderSphereScene">
+    <Filter Include="GraphicsScenes\RenderCircleSceneV1">
       <UniqueIdentifier>{9e540e94-950a-405f-aa23-109a20c8e0b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GraphicsScenes\Objects">
+    <Filter Include="GraphicsScenes\Renderables">
       <UniqueIdentifier>{619417c6-5e26-4cb4-ad05-3eafde5e099c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsScenes\Shaders">
+      <UniqueIdentifier>{c5d39b9c-ede1-4739-aea4-fecf7a5f6e72}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,9 +48,6 @@
   <ItemGroup>
     <ClCompile Include="DirectXMain.cpp">
       <Filter>DXResources</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderCubeScene.cpp">
-      <Filter>GraphicsScenes\RenderCubeScene</Filter>
     </ClCompile>
     <ClCompile Include="CaptureManager.cpp">
       <Filter>MediaUtils</Filter>
@@ -65,34 +65,31 @@
     <ClCompile Include="GameCamera.cpp">
       <Filter>DXResources</Filter>
     </ClCompile>
-    <ClCompile Include="RenderCircleScene.cpp">
-      <Filter>GraphicsScenes\RenderSphereScene</Filter>
+    <ClCompile Include="Scenes\Renderables\CircleRenderableV1.cpp">
+      <Filter>GraphicsScenes\Renderables</Filter>
     </ClCompile>
-    <ClCompile Include="IScene.cpp">
+    <ClCompile Include="Scenes\Renderables\CubeRenderable.cpp">
+      <Filter>GraphicsScenes\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Renderables\IRenderable.cpp">
+      <Filter>GraphicsScenes\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\RenderCubeScene.cpp">
+      <Filter>GraphicsScenes\RenderCubeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\RenderCircleSceneV1.cpp">
+      <Filter>GraphicsScenes\RenderCircleSceneV1</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\IScene.cpp">
       <Filter>GraphicsScenes</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeRenderable.cpp">
-      <Filter>GraphicsScenes\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="IRenderable.cpp">
-      <Filter>GraphicsScenes\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="CircleRenderableV1.cpp">
-      <Filter>GraphicsScenes\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXMain.h">
       <Filter>DXResources</Filter>
     </ClInclude>
-    <ClInclude Include="IScene.h">
-      <Filter>GraphicsScenes</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderResources.h">
       <Filter>DXResources</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderCubeScene.h">
-      <Filter>GraphicsScenes\RenderCubeScene</Filter>
     </ClInclude>
     <ClInclude Include="CaptureManager.h">
       <Filter>MediaUtils</Filter>
@@ -120,17 +117,23 @@
     <ClInclude Include="ResourcesWrapper.h">
       <Filter>DXResources</Filter>
     </ClInclude>
-    <ClInclude Include="RenderCircleScene.h">
-      <Filter>GraphicsScenes\RenderSphereScene</Filter>
+    <ClInclude Include="Scenes\Renderables\CircleRenderableV1.h">
+      <Filter>GraphicsScenes\Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="IRenderable.h">
-      <Filter>GraphicsScenes\Objects</Filter>
+    <ClInclude Include="Scenes\Renderables\CubeRenderable.h">
+      <Filter>GraphicsScenes\Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="CubeRenderable.h">
-      <Filter>GraphicsScenes\Objects</Filter>
+    <ClInclude Include="Scenes\Renderables\IRenderable.h">
+      <Filter>GraphicsScenes\Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="CircleRenderableV1.h">
-      <Filter>GraphicsScenes\Objects</Filter>
+    <ClInclude Include="Scenes\RenderCubeScene.h">
+      <Filter>GraphicsScenes\RenderCubeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\RenderCircleSceneV1.h">
+      <Filter>GraphicsScenes\RenderCircleSceneV1</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\IScene.h">
+      <Filter>GraphicsScenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -169,14 +172,14 @@
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="DefaultPixelShader.hlsl">
-      <Filter>GraphicsScenes</Filter>
+    <FxCompile Include="Scenes\shaders\RenderCircleV1PixelShader.hlsl">
+      <Filter>GraphicsScenes\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="DefaultVertexShader.hlsl">
-      <Filter>GraphicsScenes</Filter>
+    <FxCompile Include="Scenes\shaders\DefaultPixelShader.hlsl">
+      <Filter>GraphicsScenes\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="RenderCircleV1PixelShader.hlsl">
-      <Filter>GraphicsScenes\Objects</Filter>
+    <FxCompile Include="Scenes\shaders\DefaultVertexShader.hlsl">
+      <Filter>GraphicsScenes\Shaders</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

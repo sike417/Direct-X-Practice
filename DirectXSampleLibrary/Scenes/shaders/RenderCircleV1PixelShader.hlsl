@@ -13,7 +13,9 @@ struct PixelShaderInput
 
 float4 main(PixelShaderInput input) : SV_TARGET
 {
-    if (pow(abs(input.pos.x - centerPosition.x), 2) + pow(abs(input.pos.y - centerPosition.y), 2) - pow(radius, 2) > 0)
+    if (pow(abs(input.pos.x - centerPosition.x), 2) + 
+        pow(abs(input.pos.y - centerPosition.y), 2) - 
+        pow(radius, 2) > 0)
     {
         discard;
     }

@@ -4,10 +4,10 @@
 
 namespace GraphicsScenes
 {
-    class RenderCircleScene : public IScene
+    class RenderCircleSceneV1 : public IScene
     {
     public:
-        RenderCircleScene();
+        RenderCircleSceneV1();
 
         // Inherited via IScene
         virtual void Update() override;

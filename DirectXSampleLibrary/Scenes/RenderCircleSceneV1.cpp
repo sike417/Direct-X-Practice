@@ -1,5 +1,6 @@
 #include "pch.h"
-#include "RenderCircleScene.h"
+#include "RenderCircleSceneV1.h"
+
 #include "DirectXHelper.h"
 #include "CircleRenderableV1.h"
 
@@ -8,7 +9,7 @@ using namespace DXResources;
 using namespace DirectX;
 using namespace Windows::Foundation;
 
-GraphicsScenes::RenderCircleScene::RenderCircleScene()
+GraphicsScenes::RenderCircleSceneV1::RenderCircleSceneV1()
 {
     if (s_spCamera == nullptr || s_spDeviceResources == nullptr)
     {
@@ -18,11 +19,11 @@ GraphicsScenes::RenderCircleScene::RenderCircleScene()
     createDeviceDependentResources();
 }
 
-void GraphicsScenes::RenderCircleScene::Update()
+void GraphicsScenes::RenderCircleSceneV1::Update()
 {
 }
 
-void GraphicsScenes::RenderCircleScene::Render()
+void GraphicsScenes::RenderCircleSceneV1::Render()
 {
     auto d3dContext = s_spDeviceResources->GetD3DDeviceContext();
     auto vpBuffer = s_spCamera->GetCombinedVPBuffer();
@@ -56,7 +57,7 @@ void GraphicsScenes::RenderCircleScene::Render()
     }
 }
 
-void GraphicsScenes::RenderCircleScene::ActivateScene()
+void GraphicsScenes::RenderCircleSceneV1::ActivateScene()
 {
     // Eye is at (0,0,1.5), looking at point (0,0,0) with the up-vector along the y-axis.
     static const XMVECTORF32 eye = { 0.0f, 0.0f, 1.5f, 0.0f };
@@ -66,7 +67,7 @@ void GraphicsScenes::RenderCircleScene::ActivateScene()
     s_spCamera->SetCameraView(eye, at, up);
 }
 
-void GraphicsScenes::RenderCircleScene::createDeviceDependentResources()
+void GraphicsScenes::RenderCircleSceneV1::createDeviceDependentResources()
 {
     auto d3dContext = s_spDeviceResources->GetD3DDevice();
 

@@ -3,7 +3,7 @@
 
 #include "IRenderable.h"
 #include "RenderCubeScene.h"
-#include "RenderCircleScene.h"
+#include "RenderCircleSceneV1.h"
 
 using namespace Platform::Collections;
 using namespace GraphicsScenes;
@@ -36,7 +36,7 @@ void ScenePickerViewModel::initializeScenes()
 
     ObservableSceneList->Append(renderCubeScene);
 
-    SceneViewModel^ RenderCircleSceneV1 = ref new SceneViewModel(new RenderCircleScene());
+    SceneViewModel^ RenderCircleSceneV1 = ref new SceneViewModel(new GraphicsScenes::RenderCircleSceneV1());
     RenderCircleSceneV1->ImageLocation = "Assets/Scenes/RenderCircleV1.png";
     RenderCircleSceneV1->SceneName = "RenderCircleV1";
 

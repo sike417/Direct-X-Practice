@@ -123,7 +123,7 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;$(SolutionDir)DirectXSampleLibrary\Scenes\;$(SolutionDir)DirectXSampleLibrary\Scenes\Renderables\;$(SolutionDir)DirectXSampleLibrary\Scenes\shaders\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\lib\;</AdditionalLibraryDirectories>
@@ -134,7 +134,7 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;$(SolutionDir)DirectXSampleLibrary\Scenes\;$(SolutionDir)DirectXSampleLibrary\Scenes\Renderables\;$(SolutionDir)DirectXSampleLibrary\Scenes\shaders\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\lib\;</AdditionalLibraryDirectories>
@@ -145,7 +145,7 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;$(SolutionDir)DirectXSampleLibrary\Scenes\;$(SolutionDir)DirectXSampleLibrary\Scenes\Renderables\;$(SolutionDir)DirectXSampleLibrary\Scenes\shaders\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\lib\;</AdditionalLibraryDirectories>
@@ -156,7 +156,7 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;$(SolutionDir)DirectXSampleLibrary\Scenes\;$(SolutionDir)DirectXSampleLibrary\Scenes\Renderables\;$(SolutionDir)DirectXSampleLibrary\Scenes\shaders\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\lib\;</AdditionalLibraryDirectories>
@@ -168,7 +168,7 @@
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;$(SolutionDir)DirectXSampleLibrary\Scenes\;$(SolutionDir)DirectXSampleLibrary\Scenes\Renderables\;$(SolutionDir)DirectXSampleLibrary\Scenes\shaders\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -180,7 +180,7 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;$(SolutionDir)DirectXSampleLibrary\Scenes\;$(SolutionDir)DirectXSampleLibrary\Scenes\Renderables\;$(SolutionDir)DirectXSampleLibrary\Scenes\shaders\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -193,7 +193,7 @@
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;$(SolutionDir)DirectXSampleLibrary\Scenes\;$(SolutionDir)DirectXSampleLibrary\Scenes\Renderables\;$(SolutionDir)DirectXSampleLibrary\Scenes\shaders\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -209,7 +209,7 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\include;$(SolutionDir)DirectXSampleLibrary;$(SolutionDir)DirectXSampleLibrary\Scenes\;$(SolutionDir)DirectXSampleLibrary\Scenes\Renderables\;$(SolutionDir)DirectXSampleLibrary\Scenes\shaders\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)DirectXSampleLibrary\ffmpeg\lib\;</AdditionalLibraryDirectories>
@@ -218,15 +218,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CaptureManager.h" />
-    <ClInclude Include="CircleRenderableV1.h" />
-    <ClInclude Include="CubeRenderable.h" />
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="DirectXHelper.h" />
     <ClInclude Include="DirectXMain.h" />
     <ClInclude Include="FFMPEGEncoder.h" />
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="IRenderable.h" />
-    <ClInclude Include="IScene.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -234,11 +230,15 @@
     <ClInclude Include="MainPage.xaml.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="RenderCubeScene.h" />
-    <ClInclude Include="RenderCircleScene.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResourcesWrapper.h" />
     <ClInclude Include="ScenePickerViewModel.h" />
+    <ClInclude Include="Scenes\IScene.h" />
+    <ClInclude Include="Scenes\Renderables\CircleRenderableV1.h" />
+    <ClInclude Include="Scenes\Renderables\CubeRenderable.h" />
+    <ClInclude Include="Scenes\Renderables\IRenderable.h" />
+    <ClInclude Include="Scenes\RenderCircleSceneV1.h" />
+    <ClInclude Include="Scenes\RenderCubeScene.h" />
     <ClInclude Include="ShaderResources.h" />
     <ClInclude Include="TestDataConverter.h" />
   </ItemGroup>
@@ -272,14 +272,10 @@
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="CaptureManager.cpp" />
-    <ClCompile Include="CircleRenderableV1.cpp" />
-    <ClCompile Include="CubeRenderable.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="DirectXMain.cpp" />
     <ClCompile Include="FFMPEGEncoder.cpp" />
     <ClCompile Include="GameCamera.cpp" />
-    <ClCompile Include="IRenderable.cpp" />
-    <ClCompile Include="IScene.cpp" />
     <ClCompile Include="MainPage.xaml.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
@@ -293,32 +289,16 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="RenderCubeScene.cpp" />
-    <ClCompile Include="RenderCircleScene.cpp" />
     <ClCompile Include="ScenePickerViewModel.cpp" />
+    <ClCompile Include="Scenes\IScene.cpp" />
+    <ClCompile Include="Scenes\Renderables\CircleRenderableV1.cpp" />
+    <ClCompile Include="Scenes\Renderables\CubeRenderable.cpp" />
+    <ClCompile Include="Scenes\Renderables\IRenderable.cpp" />
+    <ClCompile Include="Scenes\RenderCircleSceneV1.cpp" />
+    <ClCompile Include="Scenes\RenderCubeScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="DefaultPixelShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="DefaultVertexShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-    </FxCompile>
-    <FxCompile Include="RenderCircleV1PixelShader.hlsl">
+    <FxCompile Include="Scenes\shaders\DefaultPixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">Pixel</ShaderType>
@@ -327,14 +307,25 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Scenes\shaders\DefaultVertexShader.hlsl" />
+    <FxCompile Include="Scenes\shaders\RenderCircleV1PixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
