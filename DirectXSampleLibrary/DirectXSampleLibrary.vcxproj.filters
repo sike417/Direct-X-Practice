@@ -41,6 +41,9 @@
     <Filter Include="GraphicsScenes\Shaders">
       <UniqueIdentifier>{c5d39b9c-ede1-4739-aea4-fecf7a5f6e72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GraphicsScenes\RenderCircleSceneV2">
+      <UniqueIdentifier>{8ca07b8b-5e24-47af-ab47-6233db8d0553}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -82,6 +85,12 @@
     </ClCompile>
     <ClCompile Include="Scenes\IScene.cpp">
       <Filter>GraphicsScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\RenderCircleSceneV2.cpp">
+      <Filter>GraphicsScenes\RenderCircleSceneV2</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Renderables\CircleRenderableV2.cpp">
+      <Filter>GraphicsScenes\Renderables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +144,12 @@
     <ClInclude Include="Scenes\IScene.h">
       <Filter>GraphicsScenes</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\RenderCircleSceneV2.h">
+      <Filter>GraphicsScenes\RenderCircleSceneV2</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Renderables\CircleRenderableV2.h">
+      <Filter>GraphicsScenes\Renderables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
@@ -165,6 +180,9 @@
       <Filter>Assets\Scenes</Filter>
     </Image>
     <Image Include="Assets\Scenes\RenderCircleV1.png">
+      <Filter>Assets\Scenes</Filter>
+    </Image>
+    <Image Include="Assets\Scenes\RenderCircleV2.png">
       <Filter>Assets\Scenes</Filter>
     </Image>
   </ItemGroup>

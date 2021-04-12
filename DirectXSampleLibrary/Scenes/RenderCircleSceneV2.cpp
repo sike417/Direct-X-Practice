@@ -1,15 +1,16 @@
 #include "pch.h"
-#include "RenderCubeScene.h"
+#include "RenderCircleSceneV2.h"
 #include "DirectXHelper.h"
-#include "CubeRenderable.h"
+#include "CircleRenderableV2.h"
 
 using namespace GraphicsScenes;
 using namespace DXResources;
 using namespace DirectX;
 using namespace Windows::Foundation;
 
-GraphicsScenes::RenderCubeScene::RenderCubeScene()
+GraphicsScenes::RenderCircleSceneV2::RenderCircleSceneV2()
     : m_fTotalTime(0)
+    , m_iCurrentVertexCount(0)
 {
     if (s_spCamera == nullptr || s_spDeviceResources == nullptr)
     {
@@ -19,22 +20,34 @@ GraphicsScenes::RenderCubeScene::RenderCubeScene()
     createDeviceDependentResources();
 }
 
-void GraphicsScenes::RenderCubeScene::Update()
+void GraphicsScenes::RenderCircleSceneV2::Update()
 {
     static const float TimePerUpdate = (float)(1) / 60;
     m_fTotalTime += TimePerUpdate;
 
-    float radiansPerSecond = XMConvertToRadians(40);
-    double totalRotation = m_fTotalTime * radiansPerSecond;
-    float radians = static_cast<float>(fmod(totalRotation, XM_2PI));
+    // calculate current number of vertices.
+    int numberOfSeconds = m_fTotalTime;
 
-    DirectX::XMFLOAT4X4 model;
-    XMStoreFloat4x4(&model, XMMatrixTranspose(XMMatrixRotationY(radians)));
+    if (numberOfSeconds > 10)
+    {
+        m_fTotalTime = 0;
+        numberOfSeconds = 0;
+    }
 
-    m_vScenePrimitives.front()->SetModelTransform(model);
+    static const int secondsPerChange = 1;
+    static const int minimumVerticesPerQuadrant = 2;
+    int numberOfVertices = (numberOfSeconds / secondsPerChange) + minimumVerticesPerQuadrant;
+
+    if (numberOfVertices == m_iCurrentVertexCount)
+    {
+        return;
+    }
+
+    m_iCurrentVertexCount = numberOfVertices;
+    ((CircleRenderableV2*)m_vScenePrimitives.front())->UpdateNumberOfVertices(numberOfVertices);
 }
 
-void GraphicsScenes::RenderCubeScene::Render()
+void GraphicsScenes::RenderCircleSceneV2::Render()
 {
     auto d3dContext = s_spDeviceResources->GetD3DDeviceContext();
     auto vpBuffer = s_spCamera->GetCombinedVPBuffer();
@@ -68,18 +81,18 @@ void GraphicsScenes::RenderCubeScene::Render()
     }
 }
 
-void GraphicsScenes::RenderCubeScene::ActivateScene()
+void GraphicsScenes::RenderCircleSceneV2::ActivateScene()
 {
-    // Eye is at (0,0.7,1.5), looking at point (0,-0.1,0) with the up-vector along the y-axis.
-    static const XMVECTORF32 eye = { 0.0f, 0.7f, 1.5f, 0.0f };
-    static const XMVECTORF32 at = { 0.0f, -0.1f, 0.0f, 0.0f };
+    // Eye is at (0,0,1.5), looking at point (0,0,0) with the up-vector along the y-axis.
+    static const XMVECTORF32 eye = { 0.0f, 0.0f, 1.5f, 0.0f };
+    static const XMVECTORF32 at = { 0.0f, 0.0f, 0.0f, 0.0f };
     static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
 
     s_spCamera->SetCameraView(eye, at, up);
 }
 
-void GraphicsScenes::RenderCubeScene::createDeviceDependentResources()
-{ 
+void GraphicsScenes::RenderCircleSceneV2::createDeviceDependentResources()
+{
     auto d3dContext = s_spDeviceResources->GetD3DDevice();
 
     CD3D11_BUFFER_DESC constantBufferDesc(sizeof(CombinedViewProjectionConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
@@ -88,8 +101,7 @@ void GraphicsScenes::RenderCubeScene::createDeviceDependentResources()
             &constantBufferDesc,
             nullptr,
             &m_vpConstantBuffer
-        )
-    );
+        ));
 
-    m_vScenePrimitives.push_back(new CubeRenderable());
+    m_vScenePrimitives.push_back(new CircleRenderableV2());
 }

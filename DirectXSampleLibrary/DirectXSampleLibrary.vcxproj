@@ -235,9 +235,11 @@
     <ClInclude Include="ScenePickerViewModel.h" />
     <ClInclude Include="Scenes\IScene.h" />
     <ClInclude Include="Scenes\Renderables\CircleRenderableV1.h" />
+    <ClInclude Include="Scenes\Renderables\CircleRenderableV2.h" />
     <ClInclude Include="Scenes\Renderables\CubeRenderable.h" />
     <ClInclude Include="Scenes\Renderables\IRenderable.h" />
     <ClInclude Include="Scenes\RenderCircleSceneV1.h" />
+    <ClInclude Include="Scenes\RenderCircleSceneV2.h" />
     <ClInclude Include="Scenes\RenderCubeScene.h" />
     <ClInclude Include="ShaderResources.h" />
     <ClInclude Include="TestDataConverter.h" />
@@ -259,6 +261,7 @@
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
     <Image Include="Assets\Scenes\DefaultSceneImage.png" />
     <Image Include="Assets\Scenes\RenderCircleV1.png" />
+    <Image Include="Assets\Scenes\RenderCircleV2.png" />
     <Image Include="Assets\Scenes\RenderCube.png" />
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />
@@ -292,9 +295,11 @@
     <ClCompile Include="ScenePickerViewModel.cpp" />
     <ClCompile Include="Scenes\IScene.cpp" />
     <ClCompile Include="Scenes\Renderables\CircleRenderableV1.cpp" />
+    <ClCompile Include="Scenes\Renderables\CircleRenderableV2.cpp" />
     <ClCompile Include="Scenes\Renderables\CubeRenderable.cpp" />
     <ClCompile Include="Scenes\Renderables\IRenderable.cpp" />
     <ClCompile Include="Scenes\RenderCircleSceneV1.cpp" />
+    <ClCompile Include="Scenes\RenderCircleSceneV2.cpp" />
     <ClCompile Include="Scenes\RenderCubeScene.cpp" />
   </ItemGroup>
   <ItemGroup>
