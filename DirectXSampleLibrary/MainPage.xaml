@@ -128,6 +128,7 @@
         </Canvas>
 
         <CommandBar Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="Black" Foreground="White">
+            <AppBarToggleButton x:Name="UpdateStateToggleButton" Icon="Pause" Label="Pause Update" Foreground="White" Click="toggleUpdatePause"/>
             <AppBarButton Icon="Camera" Label="Save Image" Foreground="White" Click="captureScreenImage"/>
             <AppBarToggleButton Icon="Video" Label="Save Clip" Foreground="White" Click="toggleClipCapture"/>
         </CommandBar>

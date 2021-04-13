@@ -177,7 +177,7 @@ void GraphicsScenes::CircleRenderableV2::createDeviceDependentResources()
     // Once both shaders are loaded, create the mesh.
     auto createCircleTask = (createPSTask && createVSTask).then([this, d3dContext]() {
 
-        static const int verticesInQuadrant = 10;
+        static const int verticesInQuadrant = 2;
 
         UpdateNumberOfVertices(verticesInQuadrant);
         });
@@ -199,7 +199,8 @@ std::vector<VertexPositionColor> GraphicsScenes::CircleRenderableV2::calculateVe
     std::vector<VertexPositionColor> quadrantVertices;
 
     // Top right quadrant
-    for (float currentTheta = 0; currentTheta <= quadrantTheta; currentTheta += incrementTheta)
+    int step = 0;
+    for (float currentTheta = 0; currentTheta <= quadrantTheta; currentTheta += incrementTheta, step++)
     {
         // using the following two formula:
         // yp_2 = yp_1 - r * (1-cos(theta))
@@ -207,22 +208,22 @@ std::vector<VertexPositionColor> GraphicsScenes::CircleRenderableV2::calculateVe
         float newXPoint = beginningPoint.x + radius * sinf(currentTheta);
         float newYPoint = beginningPoint.y - radius * (1 - cosf(currentTheta));
 
-        quadrantVertices.push_back(VertexPositionColor{ XMFLOAT3(newXPoint, newYPoint, 0), XMFLOAT3(1.0f, 0.0f, 0.0f) });
+        quadrantVertices.push_back(VertexPositionColor{ XMFLOAT3(newXPoint, newYPoint, 0), getNextColor(Quadrant::FIRST_QUADRANT, step, verticesInQuadrant) });
     }
 
     std::vector<VertexPositionColor> circleVirtices;
-    circleVirtices.push_back(VertexPositionColor{ centerPosition, XMFLOAT3(1.0f, 0.0f, 1.0f) });
+    circleVirtices.push_back(VertexPositionColor{ centerPosition, getNextColor(Quadrant::CENTER, 0, 0) });
     circleVirtices.insert(circleVirtices.end(), quadrantVertices.begin(), quadrantVertices.end());
 
     // Bottom right quadrant
-    for (int i = quadrantVertices.size() - 1; i >= 0; i--)
+    for (int i = quadrantVertices.size() - 1, step = 0; i >= 0; i--, step++)
     {
         if (quadrantVertices[i].pos.y == 0.0f)
         {
             continue;
         }
 
-        circleVirtices.push_back(VertexPositionColor{ XMFLOAT3(quadrantVertices[i].pos.x, -quadrantVertices[i].pos.y, quadrantVertices[i].pos.z), quadrantVertices[i].color });
+        circleVirtices.push_back(VertexPositionColor{ XMFLOAT3(quadrantVertices[i].pos.x, -quadrantVertices[i].pos.y, quadrantVertices[i].pos.z), getNextColor(Quadrant::SECOND_QUADRANT, step, verticesInQuadrant) });
     }
 
     // Bottom left quadrant
@@ -233,18 +234,18 @@ std::vector<VertexPositionColor> GraphicsScenes::CircleRenderableV2::calculateVe
             continue;
         }
 
-        circleVirtices.push_back(VertexPositionColor{ XMFLOAT3(-quadrantVertices[i].pos.x, -quadrantVertices[i].pos.y, quadrantVertices[i].pos.z), quadrantVertices[i].color });
+        circleVirtices.push_back(VertexPositionColor{ XMFLOAT3(-quadrantVertices[i].pos.x, -quadrantVertices[i].pos.y, quadrantVertices[i].pos.z), getNextColor(Quadrant::THIRD_QUADRANT, i, verticesInQuadrant) });
     }
 
     // Top left quadrant
-    for (int i = quadrantVertices.size() - 1; i >= 0; i--)
+    for (int i = quadrantVertices.size() - 1, step = 0; i >= 0; i--, step++)
     {
         if (quadrantVertices[i].pos.y == 0.0f)
         {
             continue;
         }
 
-        circleVirtices.push_back(VertexPositionColor{ XMFLOAT3(-quadrantVertices[i].pos.x, quadrantVertices[i].pos.y, quadrantVertices[i].pos.z), quadrantVertices[i].color });
+        circleVirtices.push_back(VertexPositionColor{ XMFLOAT3(-quadrantVertices[i].pos.x, quadrantVertices[i].pos.y, quadrantVertices[i].pos.z), getNextColor(Quadrant::FOURTH_QUADRANT, step, verticesInQuadrant) });
     }
 
     return circleVirtices;
@@ -270,4 +271,36 @@ std::vector<unsigned short> GraphicsScenes::CircleRenderableV2::calculateIndices
     }
 
     return indices;
+}
+
+DirectX::XMFLOAT3 GraphicsScenes::CircleRenderableV2::getNextColor(Quadrant currentQuadrant, int currentStep, int maxSteps)
+{
+    static const XMFLOAT3 firstQuadrantColor(0, 0, 1);
+    static const XMFLOAT3 secondQuadrantColor(0, 1, 1);
+    static const XMFLOAT3 thirdQuadrantColor(0, 1, 0);
+    static const XMFLOAT3 fourthQuadrantColor(1, 0, 0);
+
+    XMFLOAT3 nextColor = defaultCircleColor;
+    // Optional to return a single color if a color is set.
+    switch (currentQuadrant)
+    {
+    case Quadrant::FIRST_QUADRANT:
+        nextColor = DXResources::InterpolateColor(firstQuadrantColor, secondQuadrantColor, currentStep, maxSteps);
+        break;
+    case Quadrant::SECOND_QUADRANT:
+        nextColor = DXResources::InterpolateColor(secondQuadrantColor, thirdQuadrantColor, currentStep, maxSteps);
+        break;
+    case Quadrant::THIRD_QUADRANT:
+        nextColor = DXResources::InterpolateColor(thirdQuadrantColor, fourthQuadrantColor, currentStep, maxSteps);
+        break;
+    case Quadrant::FOURTH_QUADRANT:
+        nextColor = DXResources::InterpolateColor(fourthQuadrantColor, firstQuadrantColor, currentStep, maxSteps);
+        break;
+    case Quadrant::CENTER:
+        nextColor = DXResources::InterpolateFourEqualColor(firstQuadrantColor, secondQuadrantColor, thirdQuadrantColor, fourthQuadrantColor);
+    default:
+        break;
+    }
+
+    return nextColor;
 }

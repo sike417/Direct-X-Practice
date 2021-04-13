@@ -37,6 +37,104 @@ namespace DXResources
         return sqrt(distance);
     }
 
+    inline float HueToRGB(float p, float q, float t)
+    {
+        if (t < 0.0f) t += 1.0f;
+        if (t > 1.0f) t -= 1.0f;
+        if (t < 1.0f / 6.0f) return p + (q - p) * 6.0f * t;
+        if (t < 1.0f / 2.0f) return q;
+        if (t < 2.0f / 3.0f) return p + (q - p) * (2.0f / 3.0f - t) * 6.0f;
+        return p;
+    }
+
+    inline XMFLOAT3 ConvertHSLToRGB(XMFLOAT3 HSLValue)
+    {
+        float r, g, b;
+
+        if (HSLValue.y == 0.0f)
+            r = g = b = HSLValue.z;
+
+        else
+        {
+            auto q = HSLValue.z < 0.5f ? HSLValue.z * (1.0f + HSLValue.y) : HSLValue.z + HSLValue.y - HSLValue.z * HSLValue.y;
+            auto p = 2.0f * HSLValue.z - q;
+            r = HueToRGB(p, q, HSLValue.x + 1.0f / 3.0f);
+            g = HueToRGB(p, q, HSLValue.x);
+            b = HueToRGB(p, q, HSLValue.x - 1.0f / 3.0f);
+        }
+
+        return XMFLOAT3(r, g, b);
+    }
+
+    inline XMFLOAT3 ConvertRGBToHSL(XMFLOAT3 RGBValue)
+    {
+        float r = RGBValue.x;
+        float g = RGBValue.y;
+        float b = RGBValue.z;
+
+        float max = (r > g && r > b) ? r : (g > b) ? g : b;
+        float min = (r < g&& r < b) ? r : (g < b) ? g : b;
+
+        float h, s, l;
+        h = s = l = (max + min) / 2.0f;
+
+        if (max == min)
+            h = s = 0.0f;
+
+        else
+        {
+            float d = max - min;
+            s = (l > 0.5f) ? d / (2.0f - max - min) : d / (max + min);
+
+            if (r > g && r > b)
+                h = (g - b) / d + (g < b ? 6.0f : 0.0f);
+
+            else if (g > b)
+                h = (b - r) / d + 2.0f;
+
+            else
+                h = (r - g) / d + 4.0f;
+
+            h /= 6.0f;
+        }
+
+        return XMFLOAT3(h, s, l);
+    }
+
+    inline XMFLOAT3 InterpolateColor(XMFLOAT3 startingColor, XMFLOAT3 endingColor, float currentStep, float maxSteps)
+    {
+        if (currentStep == 0)
+        {
+            return startingColor;
+        }
+        else if (currentStep == maxSteps)
+        {
+            return endingColor;
+        }
+
+        auto interpolatedVector = DirectX::XMVectorLerp(XMLoadFloat3(&startingColor), XMLoadFloat3(&endingColor), currentStep / maxSteps);
+
+
+        XMFLOAT3 finalRGB;
+        XMStoreFloat3(&finalRGB, interpolatedVector);
+        
+        return finalRGB;
+    }
+
+    inline XMFLOAT3 InterpolateFourEqualColor(XMFLOAT3 color1, XMFLOAT3 color2, XMFLOAT3 color3, XMFLOAT3 color4)
+    {
+        auto interpolatedVector1 = DirectX::XMVectorLerp(XMLoadFloat3(&color1), XMLoadFloat3(&color2), .5);
+        auto interpolatedVector2 = DirectX::XMVectorLerp(XMLoadFloat3(&color3), XMLoadFloat3 (&color4), .5);
+
+        auto finalInterpolatedVector = DirectX::XMVectorLerp(interpolatedVector1, interpolatedVector2, .5);
+
+        XMFLOAT3 finalRGB;
+        XMStoreFloat3(&finalRGB, finalInterpolatedVector);
+
+        return finalRGB;
+    }
+
+
     inline std::string make_string(const std::wstring& wstring)
     {
         auto wideData = wstring.c_str();

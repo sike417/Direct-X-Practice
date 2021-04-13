@@ -25,6 +25,11 @@ namespace DXResources
             }
         }
 
+        void SetUpdateStatus(bool shouldUpdate)
+        {
+            m_bShouldUpdate = shouldUpdate;
+        }
+
         void StartRenderLoop();
 
     private:
@@ -34,6 +39,7 @@ namespace DXResources
         std::shared_ptr<DeviceResources> m_spDeviceResource;
         Windows::Foundation::IAsyncAction^ m_renderLoopWorker;
         Concurrency::critical_section m_criticalSection;
+        bool m_bShouldUpdate;
 
         // Not owned by DirectXMain so don't delete.
         GraphicsScenes::IScene* m_pCurrentScene;

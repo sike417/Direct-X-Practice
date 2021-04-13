@@ -43,5 +43,6 @@ namespace DirectXSampleLibrary::View
         void swapChainPanel_SizeChanged(Platform::Object^ sender, Windows::UI::Xaml::SizeChangedEventArgs^ e);
         void captureScreenImage(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
         void toggleClipCapture(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+        void toggleUpdatePause(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
     };
 }

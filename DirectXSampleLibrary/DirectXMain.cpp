@@ -8,6 +8,7 @@ DXResources::DirectXMain::DirectXMain(std::shared_ptr<DeviceResources> deviceRes
     : m_spDeviceResource(deviceResource)
     , m_renderLoopWorker(nullptr)
     , m_criticalSection()
+    , m_bShouldUpdate(true)
     , m_pCurrentScene(nullptr)
 {
 
@@ -25,8 +26,12 @@ void DXResources::DirectXMain::StartRenderLoop()
         while (action->Status == AsyncStatus::Started)
         {
             critical_section::scoped_lock lock(m_criticalSection);
-            update();
-            
+
+            if (m_bShouldUpdate)
+            {
+                update();
+            }
+
             if (render())
             {
                 // Present

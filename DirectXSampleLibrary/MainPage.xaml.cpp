@@ -107,3 +107,9 @@ void MainPage::toggleClipCapture(Platform::Object^ sender, Windows::UI::Xaml::Ro
 {
     m_spCaptureManager->SaveClip();
 }
+
+
+void DirectXSampleLibrary::View::MainPage::toggleUpdatePause(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+    m_spDirectxMain->SetUpdateStatus(!UpdateStateToggleButton->IsChecked->Value);
+}
