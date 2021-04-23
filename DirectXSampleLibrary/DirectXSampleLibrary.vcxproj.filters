@@ -92,6 +92,9 @@
     <ClCompile Include="Scenes\Renderables\CircleRenderableV2.cpp">
       <Filter>GraphicsScenes\Renderables</Filter>
     </ClCompile>
+    <ClCompile Include="TextRenderable.cpp">
+      <Filter>GraphicsScenes\Renderables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXMain.h">
@@ -148,6 +151,9 @@
       <Filter>GraphicsScenes\RenderCircleSceneV2</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\Renderables\CircleRenderableV2.h">
+      <Filter>GraphicsScenes\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRenderable.h">
       <Filter>GraphicsScenes\Renderables</Filter>
     </ClInclude>
   </ItemGroup>

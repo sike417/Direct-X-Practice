@@ -2,6 +2,7 @@
 #include "RenderCircleSceneV2.h"
 #include "DirectXHelper.h"
 #include "CircleRenderableV2.h"
+#include "TextRenderable.h"
 
 using namespace GraphicsScenes;
 using namespace DXResources;
@@ -45,6 +46,8 @@ void GraphicsScenes::RenderCircleSceneV2::Update()
 
     m_iCurrentVertexCount = numberOfVertices;
     ((CircleRenderableV2*)m_vScenePrimitives.front())->UpdateNumberOfVertices(numberOfVertices);
+
+    ((TextRenderable*)m_vScenePrimitives[1])->UpdateDisplayText(std::to_wstring(numberOfVertices * 4) + L" Vertices");
 }
 
 void GraphicsScenes::RenderCircleSceneV2::Render()
@@ -104,4 +107,5 @@ void GraphicsScenes::RenderCircleSceneV2::createDeviceDependentResources()
         ));
 
     m_vScenePrimitives.push_back(new CircleRenderableV2());
+    m_vScenePrimitives.push_back(new TextRenderable());
 }

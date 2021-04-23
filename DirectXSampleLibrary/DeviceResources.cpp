@@ -85,7 +85,7 @@ void DXResources::DeviceResources::PresentView()
     //m_d3dContext->DiscardView1(m_renderTargetView.Get(), nullptr, 0);
 
     // Discard the contents of the depth stencil.
-    //m_d3dContext->DiscardView1(m_depthStencilView.Get(), nullptr, 0);
+    m_d3dContext->DiscardView1(m_depthStencilView.Get(), nullptr, 0);
 
     // If the device was removed either by a disconnection or a driver upgrade, we 
     // must recreate all device resources.
@@ -168,6 +168,32 @@ uint8_t* DXResources::DeviceResources::GetLastRenderedFrame(UINT& width, UINT& h
 
 void DXResources::DeviceResources::initializeIndependentDeviceResources()
 {
+    //Initialize Direct2D resources.
+    D2D1_FACTORY_OPTIONS options;
+    ZeroMemory(&options, sizeof(D2D1_FACTORY_OPTIONS));
+
+#ifdef _DEBUG
+    // if in a debug build, enable direct2d debugging.
+    options.debugLevel = D2D1_DEBUG_LEVEL_INFORMATION;
+#endif
+
+    // initialize the Direct2D Factory
+    DXResources::ThrowIfFailed(
+        D2D1CreateFactory(
+            D2D1_FACTORY_TYPE_SINGLE_THREADED,
+            __uuidof(ID2D1Factory3),
+            &options,
+            &m_d2dFactory
+        )
+    );
+
+    DXResources::ThrowIfFailed(
+        DWriteCreateFactory(
+            DWRITE_FACTORY_TYPE_SHARED,
+            __uuidof(IDWriteFactory3),
+            &m_dwriteFactory
+        )
+    );
 }
 
 void DXResources::DeviceResources::initializeDeviceResources()
@@ -240,6 +266,22 @@ void DXResources::DeviceResources::initializeDeviceResources()
 
     DXResources::ThrowIfFailed(
         context.As(&m_d3dContext)
+    );
+
+    ComPtr<IDXGIDevice3> dxgiDevice;
+    DXResources::ThrowIfFailed(
+        m_d3dDevice.As(&dxgiDevice)
+    );
+
+    DXResources::ThrowIfFailed(
+        m_d2dFactory->CreateDevice(dxgiDevice.Get(), &m_d2dDevice)
+    );
+
+    DXResources::ThrowIfFailed(
+        m_d2dDevice->CreateDeviceContext(
+            D2D1_DEVICE_CONTEXT_OPTIONS_NONE,
+            &m_d2dContext
+        )
     );
 }
 
@@ -392,34 +434,34 @@ void DXResources::DeviceResources::configureSwapChain()
 
     m_d3dContext->RSSetViewports(1, &m_screenViewport);
 
-    //// Create a Direct2D target bitmap associated with the
-    //// swap chain back buffer and set it as the current target.
-    //D2D1_BITMAP_PROPERTIES1 bitmapProperties =
-    //    D2D1::BitmapProperties1(
-    //        D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
-    //        D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED),
-    //        m_dpi,
-    //        m_dpi
-    //    );
+    // Create a Direct2D target bitmap associated with the
+    // swap chain back buffer and set it as the current target.
+    D2D1_BITMAP_PROPERTIES1 bitmapProperties =
+        D2D1::BitmapProperties1(
+            D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
+            D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED),
+            m_dpi,
+            m_dpi
+        );
 
-    //ComPtr<IDXGISurface2> dxgiBackBuffer;
-    //DirectX::ThrowIfFailed(
-    //    m_swapChain->GetBuffer(0, IID_PPV_ARGS(&dxgiBackBuffer))
-    //);
+    ComPtr<IDXGISurface2> dxgiBackBuffer;
+    DXResources::ThrowIfFailed(
+        m_swapChain->GetBuffer(0, IID_PPV_ARGS(&dxgiBackBuffer))
+    );
 
-    //DX::ThrowIfFailed(
-    //    m_d2dContext->CreateBitmapFromDxgiSurface(
-    //        dxgiBackBuffer.Get(),
-    //        &bitmapProperties,
-    //        &m_d2dTargetBitmap
-    //    )
-    //);
+    DXResources::ThrowIfFailed(
+        m_d2dContext->CreateBitmapFromDxgiSurface(
+            dxgiBackBuffer.Get(),
+            &bitmapProperties,
+            &m_d2dTargetBitmap
+        )
+    );
 
-    //m_d2dContext->SetTarget(m_d2dTargetBitmap.Get());
-    //m_d2dContext->SetDpi(m_effectiveDpi, m_effectiveDpi);
+    m_d2dContext->SetTarget(m_d2dTargetBitmap.Get());
+    m_d2dContext->SetDpi(m_effectiveDpi, m_effectiveDpi);
 
-    //// Grayscale text anti-aliasing is recommended for all Microsoft Store apps.
-    //m_d2dContext->SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE);
+    // Grayscale text anti-aliasing is recommended for all Microsoft Store apps.
+    m_d2dContext->SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE);
 }
 
 void DXResources::DeviceResources::updateRenderTargetSize()
@@ -428,7 +470,9 @@ void DXResources::DeviceResources::updateRenderTargetSize()
     ID3D11RenderTargetView* nullViews[] = { nullptr };
     m_d3dContext->OMSetRenderTargets(ARRAYSIZE(nullViews), nullViews, nullptr);
     m_renderTargetView = nullptr;
-    //m_depthStencilView = nullptr;
+    m_d2dContext->SetTarget(nullptr);
+    m_d2dTargetBitmap = nullptr;
+    m_depthStencilView = nullptr;
     m_d3dContext->Flush1(D3D11_CONTEXT_TYPE_ALL, nullptr);
 
     m_effectiveDpi = m_dpi;

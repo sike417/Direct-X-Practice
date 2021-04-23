@@ -11,7 +11,15 @@ namespace GraphicsScenes
     class IScene
     {
     public:
-        virtual ~IScene() = default;
+        virtual ~IScene()
+        {
+            for (int i = 0; i < m_vScenePrimitives.size(); i++)
+            {
+                delete m_vScenePrimitives[i];
+            }
+
+            m_vScenePrimitives.clear();
+        }
 
         virtual void Update() = 0;
         virtual void Render() = 0;

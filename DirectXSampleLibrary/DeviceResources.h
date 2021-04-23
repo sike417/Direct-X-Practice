@@ -25,7 +25,14 @@ namespace DXResources
         D3D_FEATURE_LEVEL      GetDeviceFeatureLevel() const { return m_d3dFeatureLevel; }
         ID3D11RenderTargetView1* GetBackBufferRenderTargetView() const { return m_renderTargetView.Get(); }
         ID3D11DepthStencilView* GetDepthStencilView() const { return m_depthStencilView.Get(); }
+        
         D3D11_VIEWPORT        GetScreenViewport() const { return m_screenViewport; }
+        Windows::Foundation::Size GetLogicalSize() const { return m_logicalSize; }
+
+
+        ID2D1Factory3* GetD2DFactory() const { return m_d2dFactory.Get(); }
+        ID2D1DeviceContext2* GetD2DDeviceContext() const { return m_d2dContext.Get(); }
+        IDWriteFactory3* GetDWriteFactory() const { return m_dwriteFactory.Get(); }
 
         DeviceResources(const DeviceResources&) = delete;
         DeviceResources(DeviceResources&&) = delete;
@@ -44,6 +51,17 @@ namespace DXResources
         Microsoft::WRL::ComPtr<IDXGISwapChain3> m_swapChain;
         Microsoft::WRL::ComPtr<ID3D11RenderTargetView1> m_renderTargetView;
         Microsoft::WRL::ComPtr<ID3D11DepthStencilView> m_depthStencilView;
+
+        // Direct2D drawing components.
+        Microsoft::WRL::ComPtr<ID2D1Factory3> m_d2dFactory;
+        Microsoft::WRL::ComPtr<ID2D1Device2> m_d2dDevice;
+        Microsoft::WRL::ComPtr<ID2D1DeviceContext2> m_d2dContext;
+        Microsoft::WRL::ComPtr<ID2D1Bitmap1> m_d2dTargetBitmap;
+
+        // Direct Write drawing components
+        Microsoft::WRL::ComPtr<IDWriteFactory3> m_dwriteFactory;
+
+
         D3D11_VIEWPORT m_screenViewport;
 
         //cached reference to the XAML panel.
