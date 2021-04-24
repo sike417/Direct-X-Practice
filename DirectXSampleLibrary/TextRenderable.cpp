@@ -17,17 +17,11 @@ void GraphicsScenes::TextRenderable::drawShape()
     }
 
     auto context = s_spDeviceResources->GetD2DDeviceContext();
-    auto logicalSize = s_spDeviceResources->GetLogicalSize();
 
     context->SaveDrawingState(m_stateBlock.Get());
     context->BeginDraw();
 
-    auto xPos = m_transform.GetXPos();
-    auto yPos = m_transform.GetYPos();
-
-    auto screenTranslation = D2D1::Matrix3x2F::Translation(
-        xPos <= 0 ? 0 : xPos - m_textMetrics.layoutWidth,
-        yPos <= 0 ? 0 : yPos - m_textMetrics.height);
+    auto screenTranslation = getTextTranslation();
 
     // TODO: Handle orientation
     context->SetTransform(screenTranslation);
@@ -93,11 +87,37 @@ void GraphicsScenes::TextRenderable::createDeviceDependentResources()
 
     DXResources::ThrowIfFailed(m_textFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR));
 
-    DXResources::ThrowIfFailed(m_textFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING));
+    DXResources::ThrowIfFailed(m_textFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER));
 
     DXResources::ThrowIfFailed(
         s_spDeviceResources->GetD2DFactory()->CreateDrawingStateBlock(&m_stateBlock)
     );
 
     DXResources::ThrowIfFailed(s_spDeviceResources->GetD2DDeviceContext()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &m_whiteBrush));
+}
+
+D2D1::Matrix3x2F GraphicsScenes::TextRenderable::getTextTranslation()
+{
+    auto logicalSize = s_spDeviceResources->GetLogicalSize();
+
+    // Flushed against bottom left side
+    float minimumXPos = 0;
+    float minimumYPos = logicalSize.Height - m_textMetrics.layoutHeight;
+
+    // Flushed against top right side
+    float maximumXPos = logicalSize.Width - (m_textMetrics.width + m_textMetrics.left);
+    float maximumYPos = 0;
+
+    auto percentX = std::clamp(m_transform.GetXPos(), 0.0f, 1.0f);
+    auto percentY = std::clamp(m_transform.GetYPos(), 0.0f, 1.0f);
+
+    float desiredXPos = percentX * (maximumXPos - minimumXPos) + minimumXPos;
+    float desiredYPos = percentY * (maximumYPos - minimumYPos) + minimumYPos;
+
+    return D2D1::Matrix3x2F::Translation(desiredXPos, desiredYPos);
+
+
+
+
+
 }

@@ -92,10 +92,6 @@ void GraphicsScenes::RenderCircleSceneV2::ActivateScene()
     static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
 
     s_spCamera->SetCameraView(eye, at, up);
-
-    auto logicalSize = s_spDeviceResources->GetLogicalSize();
-
-    m_vScenePrimitives[1]->GetTransform().SetPosition(logicalSize.Width, 0, 0);
 }
 
 void GraphicsScenes::RenderCircleSceneV2::createDeviceDependentResources()
@@ -114,4 +110,7 @@ void GraphicsScenes::RenderCircleSceneV2::createDeviceDependentResources()
 
     auto textRenderable = new TextRenderable();
     m_vScenePrimitives.push_back(textRenderable);
+
+    // bottom right of screen
+    textRenderable->GetTransform().SetPosition(1, 0, 0);
 }

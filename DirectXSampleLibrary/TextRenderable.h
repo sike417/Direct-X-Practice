@@ -15,6 +15,7 @@ namespace GraphicsScenes
 
     private:
         void createDeviceDependentResources();
+        D2D1::Matrix3x2F getTextTranslation();
 
     private:
 
