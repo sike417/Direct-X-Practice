@@ -3,10 +3,12 @@ cbuffer CombinedViewProjectionConstantBuffer : register(b0)
     matrix vpMatrix;
 }
 
-cbuffer ModelConstantBuffer : register(b1)
-{
-    matrix model;
-};
+matrix model : register(b1);
+
+//cbuffer ModelConstantBuffer : register(b1)
+//{
+//    matrix model;
+//};
 
 struct VertexShaderInput
 {

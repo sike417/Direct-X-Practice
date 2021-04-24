@@ -28,10 +28,8 @@ void GraphicsScenes::RenderCubeScene::Update()
     double totalRotation = m_fTotalTime * radiansPerSecond;
     float radians = static_cast<float>(fmod(totalRotation, XM_2PI));
 
-    DirectX::XMFLOAT4X4 model;
-    XMStoreFloat4x4(&model, XMMatrixTranspose(XMMatrixRotationY(radians)));
-
-    m_vScenePrimitives.front()->SetModelTransform(model);
+    DXResources::Transform& transform = m_vScenePrimitives[0]->GetTransform();
+    transform.SetRotation(radians);
 }
 
 void GraphicsScenes::RenderCubeScene::Render()

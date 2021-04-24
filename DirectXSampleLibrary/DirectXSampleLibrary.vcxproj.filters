@@ -95,6 +95,9 @@
     <ClCompile Include="TextRenderable.cpp">
       <Filter>GraphicsScenes\Renderables</Filter>
     </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>DXResources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXMain.h">
@@ -155,6 +158,9 @@
     </ClInclude>
     <ClInclude Include="TextRenderable.h">
       <Filter>GraphicsScenes\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>DXResources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

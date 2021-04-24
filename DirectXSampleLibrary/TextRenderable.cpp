@@ -22,14 +22,15 @@ void GraphicsScenes::TextRenderable::drawShape()
     context->SaveDrawingState(m_stateBlock.Get());
     context->BeginDraw();
 
+    auto xPos = m_transform.GetXPos();
+    auto yPos = m_transform.GetYPos();
+
     auto screenTranslation = D2D1::Matrix3x2F::Translation(
-        logicalSize.Width - m_textMetrics.layoutWidth,
-        logicalSize.Height - m_textMetrics.height);
+        xPos <= 0 ? 0 : xPos - m_textMetrics.layoutWidth,
+        yPos <= 0 ? 0 : yPos - m_textMetrics.height);
 
     // TODO: Handle orientation
     context->SetTransform(screenTranslation);
-
-    DXResources::ThrowIfFailed(m_textFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING));
 
     context->DrawTextLayout(
         D2D1::Point2(0.f, 0.f),
@@ -91,6 +92,8 @@ void GraphicsScenes::TextRenderable::createDeviceDependentResources()
     DXResources::ThrowIfFailed(textFormat.As(&m_textFormat));
 
     DXResources::ThrowIfFailed(m_textFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR));
+
+    DXResources::ThrowIfFailed(m_textFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING));
 
     DXResources::ThrowIfFailed(
         s_spDeviceResources->GetD2DFactory()->CreateDrawingStateBlock(&m_stateBlock)

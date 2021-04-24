@@ -244,6 +244,7 @@
     <ClInclude Include="ShaderResources.h" />
     <ClInclude Include="TestDataConverter.h" />
     <ClInclude Include="TextRenderable.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -303,6 +304,7 @@
     <ClCompile Include="Scenes\RenderCircleSceneV2.cpp" />
     <ClCompile Include="Scenes\RenderCubeScene.cpp" />
     <ClCompile Include="TextRenderable.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Scenes\shaders\DefaultPixelShader.hlsl">

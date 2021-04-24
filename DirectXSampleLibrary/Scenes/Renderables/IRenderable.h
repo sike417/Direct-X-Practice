@@ -2,6 +2,7 @@
 #include "ShaderResources.h"
 #include "DeviceResources.h"
 #include "GameCamera.h"
+#include "Transform.h"
 
 #include <memory>
 
@@ -16,8 +17,6 @@ namespace GraphicsScenes
             {
                 throw ref new FailureException();
             }
-
-            DirectX::XMStoreFloat4x4(&m_modelTransform.model, DirectX::XMMatrixIdentity());
         }
 
         static void SetSharedRenderableResources(std::shared_ptr<DXResources::DeviceResources> spDeviceResource, std::shared_ptr<DXResources::GameCamera> spCamera)
@@ -28,14 +27,14 @@ namespace GraphicsScenes
 
         virtual void drawShape() = 0;
 
-        void SetModelTransform(DirectX::XMFLOAT4X4 model)
+        DXResources::Transform& GetTransform()
         {
-            m_modelTransform.model = model;
+            return m_transform;
         }
 
     protected:
         Microsoft::WRL::ComPtr<ID3D11Buffer>    m_modelTransformConstantBuffer;
-        ModelConstantBuffer                     m_modelTransform;
+        DXResources::Transform                  m_transform;
 
         static std::shared_ptr<DXResources::DeviceResources> s_spDeviceResources;
         static std::shared_ptr<DXResources::GameCamera> s_spCamera;

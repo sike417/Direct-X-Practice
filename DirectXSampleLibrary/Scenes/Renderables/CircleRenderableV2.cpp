@@ -24,12 +24,14 @@ void GraphicsScenes::CircleRenderableV2::drawShape()
 
     auto d3dContext = s_spDeviceResources->GetD3DDeviceContext();
 
+    DirectX::XMFLOAT4X4 model = m_transform.GetTransform();
+
     // load the individual primitative transform
     d3dContext->UpdateSubresource1(
         m_modelTransformConstantBuffer.Get(),
         0,
         nullptr,
-        &m_modelTransform,
+        &model,
         0,
         0,
         0);
@@ -152,7 +154,7 @@ void GraphicsScenes::CircleRenderableV2::createDeviceDependentResources()
                 ));
 
 
-            CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ModelConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
+            CD3D11_BUFFER_DESC constantBufferDesc(sizeof(XMFLOAT4X4), D3D11_BIND_CONSTANT_BUFFER);
             DXResources::ThrowIfFailed(
                 d3dContext->CreateBuffer(
                     &constantBufferDesc,

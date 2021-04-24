@@ -19,12 +19,14 @@ void GraphicsScenes::CubeRenderable::drawShape()
 
     auto d3dContext = s_spDeviceResources->GetD3DDeviceContext();
 
+    DirectX::XMFLOAT4X4 model = m_transform.GetTransform();
+
     // load the individual primitative transform
     d3dContext->UpdateSubresource1(
         m_modelTransformConstantBuffer.Get(),
         0,
         nullptr,
-        &m_modelTransform,
+        &model,
         0,
         0,
         0);
@@ -107,7 +109,7 @@ void GraphicsScenes::CubeRenderable::createDeviceDependentResources()
                     &m_inputLayout
                 ));
 
-            CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ModelConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
+            CD3D11_BUFFER_DESC constantBufferDesc(sizeof(DirectX::XMFLOAT4X4), D3D11_BIND_CONSTANT_BUFFER);
             DXResources::ThrowIfFailed(
                 d3dContext->CreateBuffer(
                     &constantBufferDesc,

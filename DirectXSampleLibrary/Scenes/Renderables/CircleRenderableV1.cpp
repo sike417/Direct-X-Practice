@@ -19,12 +19,14 @@ void GraphicsScenes::CircleRenderableV1::drawShape()
 
     auto d3dContext = s_spDeviceResources->GetD3DDeviceContext();
 
+    DirectX::XMFLOAT4X4 model = m_transform.GetTransform();
+
     // load the individual primitative transform
     d3dContext->UpdateSubresource1(
         m_modelTransformConstantBuffer.Get(),
         0,
         nullptr,
-        &m_modelTransform,
+        &model,
         0,
         0,
         0);
@@ -33,11 +35,11 @@ void GraphicsScenes::CircleRenderableV1::drawShape()
 
     //TODO: Generate this from the vertices.
     XMFLOAT3 centerPosition = XMFLOAT3(0, 0, 0);
-    m_circleParameters.centerPosition = DXResources::CalculateNDCForPosition(centerPosition, m_modelTransform.model, vpMatrix);
+    m_circleParameters.centerPosition = DXResources::CalculateNDCForPosition(centerPosition, model, vpMatrix);
     m_circleParameters.centerPosition = DXResources::ConvertNDCToPixelCoord(m_circleParameters.centerPosition, s_spDeviceResources->GetScreenViewport());
 
     XMFLOAT3 edgePosition = XMFLOAT3(.5, 0, 0);
-    edgePosition = DXResources::CalculateNDCForPosition(edgePosition, m_modelTransform.model, vpMatrix);
+    edgePosition = DXResources::CalculateNDCForPosition(edgePosition, model, vpMatrix);
     edgePosition = DXResources::ConvertNDCToPixelCoord(edgePosition, s_spDeviceResources->GetScreenViewport());
 
     m_circleParameters.radius = DXResources::CalculateDistanceBetweenPoints(m_circleParameters.centerPosition, edgePosition);
@@ -137,7 +139,7 @@ void GraphicsScenes::CircleRenderableV1::createDeviceDependentResources()
                 ));
 
 
-            CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ModelConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
+            CD3D11_BUFFER_DESC constantBufferDesc(sizeof(XMFLOAT4X4), D3D11_BIND_CONSTANT_BUFFER);
             DXResources::ThrowIfFailed(
                 d3dContext->CreateBuffer(
                     &constantBufferDesc,

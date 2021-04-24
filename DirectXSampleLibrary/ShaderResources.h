@@ -13,11 +13,6 @@ struct CombinedViewProjectionConstantBuffer
     DirectX::XMFLOAT4X4 viewProjectionMatrix;
 };
 
-struct ModelConstantBuffer
-{
-    DirectX::XMFLOAT4X4 model;
-};
-
 struct CircleParametersConstantBuffer
 {
     DirectX::XMFLOAT3 centerPosition;
