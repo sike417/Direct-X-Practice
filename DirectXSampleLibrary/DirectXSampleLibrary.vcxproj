@@ -243,7 +243,7 @@
     <ClInclude Include="Scenes\RenderCubeScene.h" />
     <ClInclude Include="ShaderResources.h" />
     <ClInclude Include="TestDataConverter.h" />
-    <ClInclude Include="TextRenderable.h" />
+    <ClInclude Include="Scenes\Renderables\TextRenderable.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -303,7 +303,7 @@
     <ClCompile Include="Scenes\RenderCircleSceneV1.cpp" />
     <ClCompile Include="Scenes\RenderCircleSceneV2.cpp" />
     <ClCompile Include="Scenes\RenderCubeScene.cpp" />
-    <ClCompile Include="TextRenderable.cpp" />
+    <ClCompile Include="Scenes\Renderables\TextRenderable.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>

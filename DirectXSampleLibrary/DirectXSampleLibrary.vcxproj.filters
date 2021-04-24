@@ -44,6 +44,9 @@
     <Filter Include="GraphicsScenes\RenderCircleSceneV2">
       <UniqueIdentifier>{8ca07b8b-5e24-47af-ab47-6233db8d0553}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GraphicsScenes\RenderSphereScene">
+      <UniqueIdentifier>{7e9093a3-f6fe-46d8-8c98-45b40108b31a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -92,7 +95,7 @@
     <ClCompile Include="Scenes\Renderables\CircleRenderableV2.cpp">
       <Filter>GraphicsScenes\Renderables</Filter>
     </ClCompile>
-    <ClCompile Include="TextRenderable.cpp">
+    <ClCompile Include="Scenes\Renderables\TextRenderable.cpp">
       <Filter>GraphicsScenes\Renderables</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
@@ -156,7 +159,7 @@
     <ClInclude Include="Scenes\Renderables\CircleRenderableV2.h">
       <Filter>GraphicsScenes\Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="TextRenderable.h">
+    <ClInclude Include="Scenes\Renderables\TextRenderable.h">
       <Filter>GraphicsScenes\Renderables</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
