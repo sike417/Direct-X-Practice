@@ -218,6 +218,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CaptureManager.h" />
+    <ClInclude Include="Scenes\Renderables\SphereRenderable.h" />
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="DirectXHelper.h" />
     <ClInclude Include="DirectXMain.h" />
@@ -230,6 +231,7 @@
     <ClInclude Include="MainPage.xaml.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="Scenes\RenderSphereScene.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResourcesWrapper.h" />
     <ClInclude Include="ScenePickerViewModel.h" />
@@ -277,6 +279,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="CaptureManager.cpp" />
+    <ClCompile Include="Scenes\Renderables\SphereRenderable.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="DirectXMain.cpp" />
     <ClCompile Include="FFMPEGEncoder.cpp" />
@@ -294,6 +297,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Scenes\RenderSphereScene.cpp" />
     <ClCompile Include="ScenePickerViewModel.cpp" />
     <ClCompile Include="Scenes\IScene.cpp" />
     <ClCompile Include="Scenes\Renderables\CircleRenderableV1.cpp" />

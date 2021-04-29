@@ -101,6 +101,12 @@
     <ClCompile Include="Transform.cpp">
       <Filter>DXResources</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\Renderables\SphereRenderable.cpp">
+      <Filter>GraphicsScenes\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\RenderSphereScene.cpp">
+      <Filter>GraphicsScenes\RenderSphereScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXMain.h">
@@ -164,6 +170,12 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>DXResources</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Renderables\SphereRenderable.h">
+      <Filter>GraphicsScenes\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\RenderSphereScene.h">
+      <Filter>GraphicsScenes\RenderSphereScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

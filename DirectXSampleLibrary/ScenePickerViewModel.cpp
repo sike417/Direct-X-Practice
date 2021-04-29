@@ -5,6 +5,7 @@
 #include "RenderCubeScene.h"
 #include "RenderCircleSceneV1.h"
 #include "RenderCircleSceneV2.h"
+#include "RenderSphereScene.h"
 
 using namespace Platform::Collections;
 using namespace GraphicsScenes;
@@ -48,6 +49,12 @@ void ScenePickerViewModel::initializeScenes()
     RenderCircleSceneV2->SceneName = "RenderCircleV2";
 
     ObservableSceneList->Append(RenderCircleSceneV2);
+
+    SceneViewModel^ RenderSphereScene = ref new SceneViewModel(new GraphicsScenes::RenderSphereScene());
+    //RenderSphereScene->ImageLocation = "Assets/Scenes/RenderCircleV2.png";
+    RenderSphereScene->SceneName = "RenderSphere";
+
+    ObservableSceneList->Append(RenderSphereScene);
 
     CurrentlySelectedSceneItem = ObservableSceneList->First()->Current;
 }
