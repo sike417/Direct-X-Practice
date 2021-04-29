@@ -113,3 +113,8 @@ void DirectXSampleLibrary::View::MainPage::toggleUpdatePause(Platform::Object^ s
 {
     m_spDirectxMain->SetUpdateStatus(!UpdateStateToggleButton->IsChecked->Value);
 }
+
+void DirectXSampleLibrary::View::MainPage::toggleWireFrameDisplay(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+    m_spDirectxMain->SetRasterizerState(DisplayStateToggleButton->IsChecked->Value);
+}

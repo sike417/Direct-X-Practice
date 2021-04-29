@@ -30,6 +30,8 @@ namespace DXResources
             m_bShouldUpdate = shouldUpdate;
         }
 
+        void SetRasterizerState(bool isWireFrame);
+
         void StartRenderLoop();
 
     private:

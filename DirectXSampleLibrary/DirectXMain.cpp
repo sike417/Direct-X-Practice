@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "DirectXMain.h"
+#include "DirectXHelper.h"
 
 using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
@@ -12,6 +13,32 @@ DXResources::DirectXMain::DirectXMain(std::shared_ptr<DeviceResources> deviceRes
     , m_pCurrentScene(nullptr)
 {
 
+}
+
+void DXResources::DirectXMain::SetRasterizerState(bool isWireFrame)
+{
+    critical_section::scoped_lock lock(m_criticalSection);
+
+    auto d3dDevice = m_spDeviceResource->GetD3DDevice();
+    auto d3dContext = m_spDeviceResource->GetD3DDeviceContext();
+
+    D3D11_RASTERIZER_DESC rs;
+
+    rs.FillMode = isWireFrame ? D3D11_FILL_WIREFRAME : D3D11_FILL_SOLID;
+    rs.CullMode = D3D11_CULL_BACK;
+    rs.FrontCounterClockwise = false;
+    rs.DepthBias = 0;
+    rs.SlopeScaledDepthBias = 0.0f;
+    rs.DepthBiasClamp = 0.0f;
+    rs.DepthClipEnable = true;
+    rs.ScissorEnable = false;
+    rs.MultisampleEnable = false;
+    rs.AntialiasedLineEnable = false;
+
+    ID3D11RasterizerState* pState = nullptr;
+    DXResources::ThrowIfFailed(d3dDevice->CreateRasterizerState(&rs, &pState));
+
+    d3dContext->RSSetState(pState);
 }
 
 void DXResources::DirectXMain::StartRenderLoop()
