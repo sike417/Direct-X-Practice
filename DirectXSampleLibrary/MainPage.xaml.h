@@ -45,6 +45,5 @@ namespace DirectXSampleLibrary::View
         void toggleClipCapture(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
         void toggleUpdatePause(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
         void toggleWireFrameDisplay(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
-
     };
 }

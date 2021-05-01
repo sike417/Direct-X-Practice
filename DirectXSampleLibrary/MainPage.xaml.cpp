@@ -34,6 +34,8 @@ MainPage::MainPage()
 
     m_spDirectxMain = std::make_shared<DirectXMain>(m_spDeviceResources);
 
+    m_spDirectxMain->SetRasterizerState(DisplayStateToggleButton->IsChecked->Value);
+
     m_spGameCamera = std::make_shared<GameCamera>(m_spDeviceResources);
     m_spCaptureManager = std::make_unique<MediaUtils::CaptureManager>(m_spDeviceResources, m_spDirectxMain);
 

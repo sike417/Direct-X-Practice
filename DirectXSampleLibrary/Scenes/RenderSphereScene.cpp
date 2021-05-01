@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "RenderSphereScene.h"
+#include "SphereRenderable.h"
 #include "DirectXHelper.h"
 
 using namespace GraphicsScenes;
@@ -79,5 +80,5 @@ void GraphicsScenes::RenderSphereScene::createDeviceDependentResources()
         )
     );
 
-    //m_vScenePrimitives.push_back(new CubeRenderable());
+    m_vScenePrimitives.push_back(new SphereRenderable());
 }

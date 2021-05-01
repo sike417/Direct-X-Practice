@@ -194,6 +194,7 @@ std::vector<VertexPositionColor> GraphicsScenes::CircleRenderableV2::calculateVe
 {
     static const XMFLOAT3 centerPosition = XMFLOAT3(0, 0, 0);
     static const XMFLOAT3 beginningPoint = XMFLOAT3(0, .5, 0);
+    static const float float_tolerance = .0000001;
     static const float radius = .5;
     static const float quadrantTheta = M_PI_2;
     const float incrementTheta = quadrantTheta / verticesInQuadrant;
@@ -202,13 +203,18 @@ std::vector<VertexPositionColor> GraphicsScenes::CircleRenderableV2::calculateVe
 
     // Top right quadrant
     int step = 0;
-    for (float currentTheta = 0; currentTheta <= quadrantTheta; currentTheta += incrementTheta, step++)
+    for (float currentTheta = 0; true; currentTheta += incrementTheta, step++)
     {
         // using the following two formula:
         // yp_2 = yp_1 - r * (1-cos(theta))
         // xp_2 = xp_1 + r * sin(theta)
         float newXPoint = beginningPoint.x + radius * sinf(currentTheta);
         float newYPoint = beginningPoint.y - radius * (1 - cosf(currentTheta));
+
+        if (newYPoint < -float_tolerance)
+        {
+            break;
+        }
 
         quadrantVertices.push_back(VertexPositionColor{ XMFLOAT3(newXPoint, newYPoint, 0), getNextColor(Quadrant::FIRST_QUADRANT, step, verticesInQuadrant) });
     }

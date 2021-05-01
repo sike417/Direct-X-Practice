@@ -38,23 +38,24 @@ void ScenePickerViewModel::initializeScenes()
 
     ObservableSceneList->Append(renderCubeScene);
 
-    SceneViewModel^ RenderCircleSceneV1 = ref new SceneViewModel(new GraphicsScenes::RenderCircleSceneV1());
-    RenderCircleSceneV1->ImageLocation = "Assets/Scenes/RenderCircleV1.png";
-    RenderCircleSceneV1->SceneName = "RenderCircleV1";
+    SceneViewModel^ renderCircleSceneV1 = ref new SceneViewModel(new GraphicsScenes::RenderCircleSceneV1());
+    renderCircleSceneV1->ImageLocation = "Assets/Scenes/RenderCircleV1.png";
+    renderCircleSceneV1->SceneName = "RenderCircleV1";
 
-    ObservableSceneList->Append(RenderCircleSceneV1);
+    ObservableSceneList->Append(renderCircleSceneV1);
 
-    SceneViewModel^ RenderCircleSceneV2 = ref new SceneViewModel(new GraphicsScenes::RenderCircleSceneV2());
-    RenderCircleSceneV2->ImageLocation = "Assets/Scenes/RenderCircleV2.png";
-    RenderCircleSceneV2->SceneName = "RenderCircleV2";
+    SceneViewModel^ renderCircleSceneV2 = ref new SceneViewModel(new GraphicsScenes::RenderCircleSceneV2());
+    renderCircleSceneV2->ImageLocation = "Assets/Scenes/RenderCircleV2.png";
+    renderCircleSceneV2->SceneName = "RenderCircleV2";
 
-    ObservableSceneList->Append(RenderCircleSceneV2);
+    ObservableSceneList->Append(renderCircleSceneV2);
 
-    SceneViewModel^ RenderSphereScene = ref new SceneViewModel(new GraphicsScenes::RenderSphereScene());
+    SceneViewModel^ renderSphereScene = ref new SceneViewModel(new GraphicsScenes::RenderSphereScene());
     //RenderSphereScene->ImageLocation = "Assets/Scenes/RenderCircleV2.png";
-    RenderSphereScene->SceneName = "RenderSphere";
+    renderSphereScene->SceneName = "RenderSphere";
 
-    ObservableSceneList->Append(RenderSphereScene);
+    ObservableSceneList->Append(renderSphereScene);
 
-    CurrentlySelectedSceneItem = ObservableSceneList->First()->Current;
+    //CurrentlySelectedSceneItem = ObservableSceneList->First()->Current;
+    CurrentlySelectedSceneItem = renderSphereScene;
 }

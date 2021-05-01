@@ -189,6 +189,7 @@
                 Click="toggleWireFrameDisplay"
                 Foreground="White"
                 Icon="Placeholder"
+                IsChecked="True"
                 Label="Enable WireFrame display" />
             <AppBarButton
                 Click="captureScreenImage"
