@@ -134,6 +134,40 @@ namespace DXResources
         return finalRGB;
     }
 
+    inline int RoundUp(int numToRound, int multiple)
+    {
+        if (numToRound <= multiple && multiple > 0)
+        {
+            return multiple;
+        }
+        else if (multiple <= 0)
+        {
+            return numToRound;
+        }
+
+
+        int remainder = numToRound % multiple;
+        if (remainder == 0)
+            return numToRound;
+
+        return numToRound + multiple - remainder;
+    }
+
+    inline float TruncToPrecision(float inputNumber, uint16 precision)
+    {
+        std::stringstream ss(std::stringstream::in | std::stringstream::out);
+
+        ss << std::fixed << std::setprecision(precision) << inputNumber;
+
+        float output = 0.0;
+        if (!(ss >> output))
+        {
+            output = inputNumber;
+        }
+
+        return output;
+    }
+
 
     inline std::string make_string(const std::wstring& wstring)
     {

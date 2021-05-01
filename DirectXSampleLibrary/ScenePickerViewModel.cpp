@@ -57,5 +57,5 @@ void ScenePickerViewModel::initializeScenes()
     ObservableSceneList->Append(renderSphereScene);
 
     //CurrentlySelectedSceneItem = ObservableSceneList->First()->Current;
-    CurrentlySelectedSceneItem = renderSphereScene;
+    CurrentlySelectedSceneItem = renderCircleSceneV2;
 }

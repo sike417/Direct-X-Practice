@@ -2,7 +2,6 @@
 #include "CircleRenderableV2.h"
 #include "DirectXHelper.h"
 
-#include <vector>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -84,11 +83,13 @@ void GraphicsScenes::CircleRenderableV2::drawShape()
     d3dContext->DrawIndexed(m_indexCount, 0, 0);
 }
 
-void GraphicsScenes::CircleRenderableV2::UpdateNumberOfVertices(const int verticesPerQuadrant)
+void GraphicsScenes::CircleRenderableV2::UpdateNumberOfVertices(int desiredVertices)
 {
+    auto startTime = std::chrono::high_resolution_clock::now();
+
     auto d3dContext = s_spDeviceResources->GetD3DDevice();
 
-    auto circleVertices = calculateVerticesForCircle(verticesPerQuadrant);
+    auto circleVertices = calculateVerticesForCircle(DXResources::RoundUp(desiredVertices, quadrantsInCircle));
 
     m_vertexCount = circleVertices.size();
 
@@ -121,6 +122,11 @@ void GraphicsScenes::CircleRenderableV2::UpdateNumberOfVertices(const int vertic
             &m_indexBuffer
         )
     );
+
+    auto endTime = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+
+    OutputDebugString((L"duration: " + duration.ToString() + L"\n")->Data());
 }
 
 void GraphicsScenes::CircleRenderableV2::createDeviceDependentResources()
@@ -179,9 +185,9 @@ void GraphicsScenes::CircleRenderableV2::createDeviceDependentResources()
     // Once both shaders are loaded, create the mesh.
     auto createCircleTask = (createPSTask && createVSTask).then([this, d3dContext]() {
 
-        static const int verticesInQuadrant = 2;
+        static const int numOfVertices = 8;
 
-        UpdateNumberOfVertices(verticesInQuadrant);
+        UpdateNumberOfVertices(numOfVertices);
         });
 
     // Once the cube is loaded, the object is ready to be rendered.
@@ -190,73 +196,51 @@ void GraphicsScenes::CircleRenderableV2::createDeviceDependentResources()
         });
 }
 
-std::vector<VertexPositionColor> GraphicsScenes::CircleRenderableV2::calculateVerticesForCircle(const int verticesInQuadrant)
+std::vector<VertexPositionColor> GraphicsScenes::CircleRenderableV2::calculateVerticesForCircle(const int desiredVertices)
 {
-    static const XMFLOAT3 centerPosition = XMFLOAT3(0, 0, 0);
     static const XMFLOAT3 beginningPoint = XMFLOAT3(0, .5, 0);
     static const float float_tolerance = .0000001;
     static const float radius = .5;
-    static const float quadrantTheta = M_PI_2;
-    const float incrementTheta = quadrantTheta / verticesInQuadrant;
+    static const float circleTheta = 2 * M_PI;
+    const float incrementTheta = circleTheta / desiredVertices;
+    const int verticesPerQuadrant = desiredVertices / quadrantsInCircle;
 
-    std::vector<VertexPositionColor> quadrantVertices;
+    std::vector<VertexPositionColor> circleVertices;
+    circleVertices.push_back(VertexPositionColor{ XMFLOAT3(0,0,0), getNextColor(Quadrant::CENTER, 0, 0) });
 
-    // Top right quadrant
     int step = 0;
-    for (float currentTheta = 0; true; currentTheta += incrementTheta, step++)
+
+    for (float currentTheta = 0; step < desiredVertices; currentTheta += incrementTheta, step++)
     {
         // using the following two formula:
         // yp_2 = yp_1 - r * (1-cos(theta))
         // xp_2 = xp_1 + r * sin(theta)
+
         float newXPoint = beginningPoint.x + radius * sinf(currentTheta);
         float newYPoint = beginningPoint.y - radius * (1 - cosf(currentTheta));
 
-        if (newYPoint < -float_tolerance)
+        Quadrant currentQuadrant = Quadrant::FIRST_QUADRANT;
+        if (step < verticesPerQuadrant)
         {
-            break;
+            currentQuadrant = Quadrant::FIRST_QUADRANT;
+        }
+        else if (step < verticesPerQuadrant * 2)
+        {
+            currentQuadrant = Quadrant::SECOND_QUADRANT;
+        }
+        else if (step < verticesPerQuadrant * 3)
+        {
+            currentQuadrant = Quadrant::THIRD_QUADRANT;
+        }
+        else
+        {
+            currentQuadrant = Quadrant::FOURTH_QUADRANT;
         }
 
-        quadrantVertices.push_back(VertexPositionColor{ XMFLOAT3(newXPoint, newYPoint, 0), getNextColor(Quadrant::FIRST_QUADRANT, step, verticesInQuadrant) });
+        circleVertices.push_back(VertexPositionColor{ XMFLOAT3(newXPoint, newYPoint, 0), getNextColor(currentQuadrant, step % verticesPerQuadrant, verticesPerQuadrant) });
     }
 
-    std::vector<VertexPositionColor> circleVirtices;
-    circleVirtices.push_back(VertexPositionColor{ centerPosition, getNextColor(Quadrant::CENTER, 0, 0) });
-    circleVirtices.insert(circleVirtices.end(), quadrantVertices.begin(), quadrantVertices.end());
-
-    // Bottom right quadrant
-    for (int i = quadrantVertices.size() - 1, step = 0; i >= 0; i--, step++)
-    {
-        if (quadrantVertices[i].pos.y == 0.0f)
-        {
-            continue;
-        }
-
-        circleVirtices.push_back(VertexPositionColor{ XMFLOAT3(quadrantVertices[i].pos.x, -quadrantVertices[i].pos.y, quadrantVertices[i].pos.z), getNextColor(Quadrant::SECOND_QUADRANT, step, verticesInQuadrant) });
-    }
-
-    // Bottom left quadrant
-    for (int i = 0; i < quadrantVertices.size(); i++)
-    {
-        if (quadrantVertices[i].pos.x == 0.0f)
-        {
-            continue;
-        }
-
-        circleVirtices.push_back(VertexPositionColor{ XMFLOAT3(-quadrantVertices[i].pos.x, -quadrantVertices[i].pos.y, quadrantVertices[i].pos.z), getNextColor(Quadrant::THIRD_QUADRANT, i, verticesInQuadrant) });
-    }
-
-    // Top left quadrant
-    for (int i = quadrantVertices.size() - 1, step = 0; i >= 0; i--, step++)
-    {
-        if (quadrantVertices[i].pos.y == 0.0f)
-        {
-            continue;
-        }
-
-        circleVirtices.push_back(VertexPositionColor{ XMFLOAT3(-quadrantVertices[i].pos.x, quadrantVertices[i].pos.y, quadrantVertices[i].pos.z), getNextColor(Quadrant::FOURTH_QUADRANT, step, verticesInQuadrant) });
-    }
-
-    return circleVirtices;
+    return circleVertices;
 }
 
 std::vector<unsigned short> GraphicsScenes::CircleRenderableV2::calculateIndicesFromNumberOfVertices(const int numberOfVertices)
@@ -277,6 +261,11 @@ std::vector<unsigned short> GraphicsScenes::CircleRenderableV2::calculateIndices
         indices.push_back(i);
         indices.push_back(i + 1);
     }
+
+    // Manually add the last triangle;
+    indices.push_back(0);
+    indices.push_back(numberOfVertices - 1);
+    indices.push_back(1);
 
     return indices;
 }

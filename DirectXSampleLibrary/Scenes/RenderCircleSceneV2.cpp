@@ -36,8 +36,8 @@ void GraphicsScenes::RenderCircleSceneV2::Update()
     }
 
     static const int secondsPerChange = 1;
-    static const int minimumVerticesPerQuadrant = 2;
-    int numberOfVertices = (numberOfSeconds / secondsPerChange) + minimumVerticesPerQuadrant;
+    static const int minimumVerticesPerQuadrant = 8;
+    int numberOfVertices = ((numberOfSeconds / secondsPerChange) * 4) + minimumVerticesPerQuadrant;
 
     if (numberOfVertices == m_iCurrentVertexCount)
     {
@@ -45,9 +45,11 @@ void GraphicsScenes::RenderCircleSceneV2::Update()
     }
 
     m_iCurrentVertexCount = numberOfVertices;
-    ((CircleRenderableV2*)m_vScenePrimitives.front())->UpdateNumberOfVertices(numberOfVertices);
 
-    ((TextRenderable*)m_vScenePrimitives[1])->UpdateDisplayText(std::to_wstring(numberOfVertices * 4) + L" Vertices");
+    auto circleRenderable = (CircleRenderableV2*)m_vScenePrimitives.front();
+    circleRenderable->UpdateNumberOfVertices(numberOfVertices);
+
+    ((TextRenderable*)m_vScenePrimitives[1])->UpdateDisplayText(std::to_wstring(circleRenderable->GetCurrentNumberOfVertices()) + L" Vertices");
 }
 
 void GraphicsScenes::RenderCircleSceneV2::Render()

@@ -25,6 +25,11 @@
 #include <math.h>
 #include <gsl\gsl_util>
 #include <string>
+#include <vector>
+#include <chrono>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 
 #include "App.xaml.h"
 #include "TestDataConverter.h"

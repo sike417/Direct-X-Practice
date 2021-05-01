@@ -11,7 +11,13 @@ namespace GraphicsScenes
         // Inherited via IRenderable
         virtual void drawShape() override;
 
-        void UpdateNumberOfVertices(const int verticesPerQuadrant);
+        // desiredVertices should be a multiple of four, otherwise this function will round it up to the nearest multiple.
+        void UpdateNumberOfVertices(int desiredVertices);
+
+        int GetCurrentNumberOfVertices()
+        {
+            return m_vertexCount - 1;
+        }
 
     private:
 
@@ -25,7 +31,7 @@ namespace GraphicsScenes
         };
 
         void createDeviceDependentResources();
-        std::vector<VertexPositionColor> calculateVerticesForCircle(const int verticesInQuadrant);
+        std::vector<VertexPositionColor> calculateVerticesForCircle(const int desiredVertices);
         std::vector<unsigned short> calculateIndicesFromNumberOfVertices(const int numberOfVertices);
         DirectX::XMFLOAT3 getNextColor(Quadrant currentQuadrant, int currentStep, int maxSteps);
 
@@ -42,5 +48,6 @@ namespace GraphicsScenes
         int m_vertexCount;
 
         const DirectX::XMFLOAT3 defaultCircleColor = XMFLOAT3(1.0f, 0.0f, 0.0f);
+        const int quadrantsInCircle = 4;
     };
 }
