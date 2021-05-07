@@ -3,9 +3,6 @@
 #include "DirectXHelper.h"
 
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-
 using namespace GraphicsScenes;
 using namespace DirectX;
 
@@ -124,7 +121,7 @@ void GraphicsScenes::CircleRenderableV2::UpdateNumberOfVertices(int desiredVerti
     );
 
     auto endTime = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
 
     OutputDebugString((L"duration: " + duration.ToString() + L"\n")->Data());
 }

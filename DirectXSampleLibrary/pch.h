@@ -31,5 +31,8 @@
 #include <sstream>
 #include <iomanip>
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #include "App.xaml.h"
 #include "TestDataConverter.h"

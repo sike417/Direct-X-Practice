@@ -6,6 +6,7 @@
 
 using namespace GraphicsScenes;
 using namespace DXResources;
+
 using namespace DirectX;
 using namespace Windows::Foundation;
 

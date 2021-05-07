@@ -21,6 +21,15 @@ GraphicsScenes::RenderSphereScene::RenderSphereScene()
 
 void GraphicsScenes::RenderSphereScene::Update()
 {
+    static const float TimePerUpdate = (float)(1) / 60;
+    m_fTotalTime += TimePerUpdate;
+
+    float radiansPerSecond = XMConvertToRadians(20);
+    double totalRotation = m_fTotalTime * radiansPerSecond;
+    float radians = static_cast<float>(fmod(totalRotation, XM_2PI));
+
+    DXResources::Transform& transform = m_vScenePrimitives[0]->GetTransform();
+    transform.SetRotation(radians);
 }
 
 void GraphicsScenes::RenderSphereScene::Render()
